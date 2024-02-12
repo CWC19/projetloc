@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Mon compte </h1>
+    <h2>Mes informations : </h2>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ utilisateur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ utilisateur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ utilisateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Permis</th>
+                <td>{{ utilisateur.permis }}</td>
+            </tr>
+            <tr>
+                <th>Dof</th>
+                <td>{{ utilisateur.dof ? utilisateur.dof|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ utilisateur.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ utilisateur.tel }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ utilisateur.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ utilisateur.ville }}</td>
+            </tr>
+            <tr>
+                <th>Cp</th>
+                <td>{{ utilisateur.cp }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ utilisateur.pays ? utilisateur.pays|json_encode : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}"><button type="button" class="btn btn-outline-warning">Modifier mes informations</button></a>
+    {{ include('utilisateur/_delete_form.html.twig') }}
+
+    <h2>Mes réservations :</h2>
+    {{ include('reservation/res.html.twig', {'id': utilisateur.id}) }}
+
+{% endblock %}

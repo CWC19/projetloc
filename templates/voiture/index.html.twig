@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture index{% endblock %}
+
+{% block body %}
+    
+    <div class="all">
+        {% for voiture in voitures %}
+            <div class="unique">
+            <div class="slider-wraper">
+                <div class="slider">
+                    <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1" alt="photo1" width="200px">
+                    <img src={{asset('IMAGES/'~ voiture.photo2)}} id="slide-1" alt="photo2" width="200px">
+                    <img src={{asset('IMAGES/'~ voiture.photo3)}} id="slide-1" alt="photo3" width="200px">
+                 </div>
+                 <div class="slider-nav">
+                    <a href="#slide-1"></a>
+                    <a href="#slide-2"></a>
+                    <a href="#slide-3"></a>
+                 </div>
+            </div>
+            <div class="info">
+                 {{ voiture.id }}
+                 {{ voiture.immat }}
+                 {{ voiture.prix }}€/jour
+                 {{ voiture.couleur }}
+            
+                 
+                
+                    <a href="{{ path('app_voiture_show', {'id': voiture.id}) }}" class="btn btn-success">En savoir +</a>
+
+                    <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">edit</a>
+                    {# <a href="{{ path('app_reservation_new', {'id': voiture.id}) }}">Réserver</a> #}
+            </div>    
+        </div>
+        {% else %}
+            
+            no records found
+        
+        {% endfor %}
+
+    </div>
+    <a href="{{ path('app_voiture_new') }}">Create new</a>
+{% endblock %}
