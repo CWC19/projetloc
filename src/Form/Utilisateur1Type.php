@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class Utilisateur1Type extends AbstractType
 {
@@ -40,10 +42,12 @@ class Utilisateur1Type extends AbstractType
                 ]
             ])            
             ->add('password',RepeatedType::class,[
-                "type"=>PasswordType::class,
+                'constraints' => [
+                    new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/', $message="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et 12 caractères. ")
+                ],                "type"=>PasswordType::class,
                 "attr"=>["class"=>"form-control"],
-                "first_options"=>["label"=>"mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]],
-                "second_options"=>["label"=>"mot de passe(vérification)","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]]
+                "first_options"=>["label"=>"Mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]],
+                "second_options"=>["label"=>"Vérification du mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]]
             ])            
             ->add('roles', ChoiceType::class,[
                 "attr"=>["class"=>"form-control "],
