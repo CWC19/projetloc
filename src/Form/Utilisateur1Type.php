@@ -57,7 +57,6 @@ class Utilisateur1Type extends AbstractType
                     "Client"=>"CLIENT"
                 ]
             ])
-            ->add('save', SubmitType::class,["attr"=>["class"=>"btn btn-primary mt-3 "]])
         ;
     }
 

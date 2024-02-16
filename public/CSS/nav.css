@@ -11,6 +11,7 @@ nav{
     height: 80px;
     width: 100%;
 
+
 }
 
 .logo{
@@ -40,7 +41,8 @@ nav ul li a{
 }
 
 a:hover{
+    text-decoration: none;
     background-color: white;
-    color: black;
+    color: #968633;
     transition: .5s;
 }

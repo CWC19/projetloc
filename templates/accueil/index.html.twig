@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+    <div class="hero-image">
+        <div class="hero-text">
+          <h1>Découvrez la Liberté de Voyager avec <span class="lovo">Lo Vo</span> </h1>
+          <p>Bienvenue chez <span class="lovo">Lo Vo</span> , votre partenaire de confiance pour une expérience de location de voiture exceptionnelle. Nous comprenons que chaque voyage est unique, c'est pourquoi nous mettons à votre disposition une flotte diversifiée de véhicules de qualité supérieure pour répondre à tous vos besoins de déplacement.</p>
+          
+        </div>
+        <a id="button1" href="#" ><button>Réservez !</button> </a>
+    </div> 
+    <div>
+      <div class="container">
+          <div class="row">
+            <div class="col-md-5 ">
+              <div>
+                <p>Notre flotte diversifiée de véhicules de dernière génération est soigneusement sélectionnée pour répondre à tous vos besoins.
+                Que vous recherchiez une conduite économique, une aventure tout-terrain ou une élégance sophistiquée, notre flotte a le véhicule parfait pour vous.  
+                Des voitures compactes économiques aux SUV spacieux, en passant par les berlines élégantes, nous avons la clé de votre liberté de voyage. Chaque véhicule est régulièrement entretenu pour garantir votre sécurité et votre confort tout au long de votre trajet.</p>
+                <img id="img1" src="PHOTOS/interieur_accueil.jpg" alt="interieur" width= "472px" height= "300px" >
+              </div>
+            </div>
+            <div class="col-md-2">
+              <p id="barre"></p>
+          </div>
+          <div class="col-md-5 droite">
+            <div>
+              <img id="img2" src="PHOTOS/suv.jpg" alt="suv" width= "482px" height= "300px">
+              <p id="txt">Chez <span class="lovo">Lo Vo</span>, nous croyons que la location de voiture ne devrait pas être simplement fonctionnelle, mais aussi mémorable. C'est pourquoi nous allons au-delà de la simple transaction, vous offrant une expérience complète. Explorez de nouveaux horizons, créez des souvenirs durables et découvrez la beauté de la route.
+              Votre prochaine aventure sur la route commence ici. Réservez dès maintenant et découvrez la différence d'une expérience de location de voiture exceptionnelle.</p>
+            </div>
+    
+        </div>
+    </div>
+
+{% endblock %}

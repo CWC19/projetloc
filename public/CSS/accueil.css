@@ -1,0 +1,109 @@
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../IMAGES/pexels-lukas-žvikas-1075947.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+ a button{
+
+    padding: 1%;
+    text-align: center;
+    background-color: #968633; 
+    color: white;
+    font-family: Inknut Antiqua;
+    border: 2px solid #968633;
+    border-radius: 20% ;
+    
+}
+
+
+#button1{
+    position: relative;
+    top: 60%;
+    left: 45%;
+    text-decoration: none;
+    
+    
+}
+
+ 
+
+
+
+
+ h1{
+    font-size: 24px;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFF;
+font-family: Inter;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal; 
+}
+
+.lovo{
+    color: #968633;
+text-align: justify;
+font-family: Inknut Antiqua;
+font-size: 26px;
+font-style: normal;
+font-weight: 400;
+line-height: normal; 
+}
+
+.container{
+    color: #000;
+    text-align: justify;
+    font-family: Jomolhari;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+    margin-top: 10%;
+    width: 100vw;
+}
+
+
+#barre{
+    background: var(--VERT, #606C38);
+    width: 16px;
+    height: 450%;
+    flex-shrink: 0; 
+    position: relative;
+    left: 45%;
+}
+
+#img1{
+    position: absolute;
+    top: 190%;
+    border: 5px solid #968633;
+
+}
+
+#img2{
+    position: absolute;
+    top: 150%;
+    left: 10%;
+    border: 5px solid #968633;
+
+}
+
+#txt{
+    position: absolute;
+    top: 230%;
+    left: 55%;
+    width: 38%;
+
+}
