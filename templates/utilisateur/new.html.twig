@@ -3,14 +3,17 @@
 {% block title %}New Utilisateur{% endblock %}
 
 {% block body %}
-<div class="col-md-5 inscription">
-        <h1 class="text-center">M'inscrire</h1>
-        <div class="">
-            {{ include('utilisateur/_form.html.twig') }}
-        </div>
-        <button class="btn btn-lg btn-success btnins" type="submit">
-            Valider
-        </button>
+<div class="hero-image-cov">
+    <div class=" inscription">
+            <h1 class="text-center">M'inscrire</h1>
+            <div class="">
+                {{ include('utilisateur/_form.html.twig') }}
+            </div>
+            <button class="btn btn-lg btn-success btnins" type="submit">
+                Valider
+            </button>
+    </div>
 </div>
+
 
 {% endblock %}

@@ -1,7 +1,30 @@
 .inscription{
-    margin: auto;
+    width: 40%;
+    position: relative;
+    top: 30%;
+    left: 30%;
+    border: 2px solid #968633;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8);    /*  80%  */
+    padding: 2%;
+    height: 100vh;
 }
 
 .btnins{
     margin: 2% 45%;    
 }
+
+.hero-image-cov {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../IMAGES/pexels-lukas-žvikas-1075947.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 100vw;
+    height: auto;
+  }
+
+.my-custom-class-for-errors{
+    color: red;
+}
+

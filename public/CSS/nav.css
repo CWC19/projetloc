@@ -10,14 +10,20 @@ nav{
     background-color: #283618;
     height: 80px;
     width: 100%;
-
-
 }
 
 .logo{
     font-size: 35px;
     line-height: 80px;
     padding: 0 100px;
+    color: #968633;
+    text-decoration: none;
+}
+
+.logo:hover{
+    text-decoration:none;
+    color:#968633;
+    transition: .5s;
 }
 
 nav ul{
@@ -36,13 +42,19 @@ nav ul li a{
     color: white;
     font-size: 17px;
     text-transform: uppercase;
+    text-decoration: none;
     padding: 7px 13px;
     border-radius: 3px;
 }
 
-a:hover{
-    text-decoration: none;
-    background-color: white;
+nav ul li a:hover{
+    text-decoration: underline;
     color: #968633;
     transition: .5s;
 }
+
+/* a:hover{
+    text-decoration:underline;
+    color: #968633;
+    transition: .5s;
+} */

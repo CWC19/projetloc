@@ -23,18 +23,22 @@ class Utilisateur1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('prenom',TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
+
+        
+            ->add('nom',TextType::class,["attr"=>["class"=>"form-control col-md-6"], "label_attr"=>["class"=>""]])
+            ->add('prenom',TextType::class,["attr"=>["class"=>"form-control col-md-6"], "label_attr"=>["class"=>""]])
             ->add('permis', TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
             ->add('email',EmailType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('dof', TypeDateType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('sexe', TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('tel', TelType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
+            ->add('dof', TypeDateType::class,["attr"=>["class"=>"form-control col-md-6"], 
+                    "label"=>"Date de naissance :", 
+                    "label_attr"=>["class"=>""]])
+            ->add('sexe', TextType::class,["attr"=>["class"=>"form-control col-md-6"], "label_attr"=>["class"=>""]])
+            ->add('tel', TelType::class,["attr"=>["class"=>"form-control"], "label"=>"N° de téléphone :", "label_attr"=>["class"=>""]])
             ->add('adresse',TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('ville', TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('cp', NumberType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
+            ->add('ville', TextType::class,["attr"=>["class"=>"form-control col-md-4"], "label_attr"=>["class"=>""]])
+            ->add('cp', NumberType::class,["attr"=>["class"=>"form-control col-md-4"], "label_attr"=>["class"=>""]])
             ->add('pays', ChoiceType::class,[
-                "attr"=>["class"=>"form-control "],
+                "attr"=>["class"=>"form-control col-md-4"],
                 "multiple"=>true,
                 "choices"=>[
                     "France"=>"France", //"label"->"valeur" (valeur=stocker dans bdd)
@@ -45,12 +49,12 @@ class Utilisateur1Type extends AbstractType
                 'constraints' => [
                     new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/', $message="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et 12 caractères. ")
                 ],                "type"=>PasswordType::class,
-                "attr"=>["class"=>"form-control"],
+                "attr"=>["class"=>"form-control col-md-6"],
                 "first_options"=>["label"=>"Mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]],
                 "second_options"=>["label"=>"Vérification du mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]]
             ])            
             ->add('roles', ChoiceType::class,[
-                "attr"=>["class"=>"form-control "],
+                "attr"=>["class"=>"form-control col-md-6"],
                 "multiple"=>true,
                 "choices"=>[
                     "Admin"=>"ADMIN", //"label"->"valeur" (valeur=stocker dans bdd)
