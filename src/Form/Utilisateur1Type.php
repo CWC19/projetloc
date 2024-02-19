@@ -48,7 +48,8 @@ class Utilisateur1Type extends AbstractType
             ->add('password',RepeatedType::class,[
                 'constraints' => [
                     new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/', $message="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et 12 caractères. ")
-                ],                "type"=>PasswordType::class,
+                ], 
+                "type"=>PasswordType::class,
                 "attr"=>["class"=>"form-control col-md-6"],
                 "first_options"=>["label"=>"Mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]],
                 "second_options"=>["label"=>"Vérification du mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]]
@@ -57,8 +58,8 @@ class Utilisateur1Type extends AbstractType
                 "attr"=>["class"=>"form-control col-md-6"],
                 "multiple"=>true,
                 "choices"=>[
-                    "Admin"=>"ADMIN", //"label"->"valeur" (valeur=stocker dans bdd)
-                    "Client"=>"CLIENT"
+                    "Admin"=>"ROLE_ADMIN", //"label"->"valeur" (valeur=stocker dans bdd)
+                    "Client"=>"ROLE_CLIENT"
                 ]
             ])
         ;

@@ -6,10 +6,10 @@
     <h1>Create new Reservation</h1>
 
     {{ include('reservation/_form.html.twig') }}
-    {{app.user.id}}
-    {% for c in client %}
-        {{c.id}}
-    {% endfor %}
-    {# {{client}} #}
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
+    
+   
+        {# {{ dump(client) }} #}
+    
+    
+    <a href="{{ path('app_reservation_index') }}">Retour au catalogue</a>
 {% endblock %}

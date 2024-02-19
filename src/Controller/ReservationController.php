@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
+use App\Entity\Utilisateur;
 use App\Form\ReservationType;
+use App\Form\Utilisateur1Type;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
@@ -27,10 +29,22 @@ class ReservationController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reservation = new Reservation();
+        $id= $request->query->all(); var_dump($id);
+        $idd= $request->query->get('idv'); var_dump($idd);
+        $pv= $request->query->get('prixv'); var_dump($pv);
+        $dd= strtotime($request->query->get('datedebut')); var_dump($dd);
+        $df= strtotime($request->query->get('datef')); var_dump($df);
+        $reservation->setClient($this->getUser());
+        
+        // $reservation->setVoiture($id);
+        if (!empty($df) && !empty($dd)) {
+            $nbj = ($df - $dd)/86400;
+            var_dump($nbj);
+        }
+        $prix = $nbj * $pv;
+        $reservation->setPrixTT($prix);
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-        $client[]=$this->getUser();
-        dump($client);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($reservation);
             $entityManager->flush();
@@ -41,7 +55,8 @@ class ReservationController extends AbstractController
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
-            'client' => $client,
+
+            
         ]);
     }
 
@@ -80,5 +95,24 @@ class ReservationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/res/{id}', name: 'app_reservation_compte', methods: ['GET'])]
+    public function compte(Reservation $reservation): Response
+    {
+        return $this->render('reservation/res.html.twig', [
+            'reservation' => $reservation,
+        ]);
+    }
+
+    #[Route('/res', name: 'app_reservation_res', methods: ['GET'])]
+    public function res(Reservation $reservation, EntityManagerInterface $entityManager): Response
+    {
+        $res = $entityManager->getRepository(Reservation::class)->findAllMyReservation($this->getUser());
+        var_dump($res);
+        return $this->render('reservation/res.html.twig', [
+            // 'reservation' => $reservation,
+            'res' => $res,
+        ]);
     }
 }

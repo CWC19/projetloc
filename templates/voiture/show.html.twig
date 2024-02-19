@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Voiture</h1>
+        {# {{ include('reservation/form_date.html.twig') }} #}
 
     <table class="table">
     
@@ -39,10 +40,24 @@
             </tr>
         </tbody>
     </table>
+    <form action="{{ path('app_reservation_new') }}" method="get">
+        <label for="datedebut">Du :</label>
+        <input type="date" name="datedebut" id="datedebut">
+        <label for="datefin">Au :</label>
+        <input type="date" name="datef" id="datefin">
+        <input type="hidden" value="{{voiture.id}}" name="idv">
+        <input type="hidden" value="{{voiture.prix}}" name="prixv">
+        <input type="submit" value="Réserver">
+    </form>
 
-    <a href="{{ path('app_voiture_index') }}">back to list</a>
+    <a href="{{ path('app_voiture_index') }}">Retour au catalogue</a>
+    {# <a href="{{ path('app_reservation_new', {'idv':  voiture.id } ) }}">Réserver</a> #}
+    {% if is_granted('ROLE_CLIENT') %}
+        <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">edit</a> 
+        {{ include('voiture/_delete_form.html.twig') }}
+    {% endif %}
 
-    <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">edit</a>
 
-    {{ include('voiture/_delete_form.html.twig') }}
+
+   
 {% endblock %}

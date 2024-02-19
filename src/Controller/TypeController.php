@@ -45,7 +45,7 @@ class TypeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_type_show', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
+    // #[IsGranted('ROLE_')]
     public function show(Type $type): Response
     {
         return $this->render('type/show.html.twig', [

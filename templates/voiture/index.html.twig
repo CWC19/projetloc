@@ -3,7 +3,6 @@
 {% block title %}Voiture index{% endblock %}
 
 {% block body %}
-    
     <div class="all">
         {% for voiture in voitures %}
             <div class="unique">
@@ -27,9 +26,10 @@
             
                  
                 
-                    <a href="{{ path('app_voiture_show', {'id': voiture.id}) }}" class="btn btn-success">En savoir +</a>
-
+                <a href="{{ path('app_voiture_show', {'id': voiture.id}) }}" class="btn btn-success">En savoir +</a>
+                {% if is_granted('ROLE_CLIENT') %}
                     <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">edit</a>
+                {% endif %}
                     {# <a href="{{ path('app_reservation_new', {'id': voiture.id}) }}">Réserver</a> #}
             </div>    
         </div>
@@ -40,5 +40,8 @@
         {% endfor %}
 
     </div>
-    <a href="{{ path('app_voiture_new') }}">Create new</a>
+    {% if is_granted('ROLE_CLIENT') %}
+        <a href="{{ path('app_voiture_new') }}">Create new</a>
+    {% endif %}
+    
 {% endblock %}

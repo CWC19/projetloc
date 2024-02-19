@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/voiture')]
@@ -24,6 +25,7 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/new', name: 'app_voiture_new', methods: ['GET', 'POST'])]
+    // #[IsGranted('ADMIN',  message: 'You are not allowed to access the admin dashboard.')]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $voiture = new Voiture();
@@ -79,8 +81,10 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_voiture_show', methods: ['GET'])]
-    public function show(Voiture $voiture): Response
+    public function show(Voiture $voiture, Request $request): Response
     {
+        $idv = $request->query->get('id');
+        var_dump($idv);
         return $this->render('voiture/show.html.twig', [
             'voiture' => $voiture,
         ]);
@@ -91,6 +95,8 @@ class VoitureController extends AbstractController
     {
         $form = $this->createForm(VoitureType::class, $voiture);
         $form->handleRequest($request);
+        $idv = $request->request->get('id');
+        var_dump($idv);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -99,6 +105,7 @@ class VoitureController extends AbstractController
         }
 
         return $this->render('voiture/edit.html.twig', [
+            
             'voiture' => $voiture,
             'form' => $form,
         ]);

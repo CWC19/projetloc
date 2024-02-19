@@ -36,11 +36,11 @@ class ReservationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Reservation
+//    public function findOneBySomeRes($value): ?Reservation
 //    {
 //        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
+//            ->andWhere('r.client = :c')
+//            ->setParameter('c', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;

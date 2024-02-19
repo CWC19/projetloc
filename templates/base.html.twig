@@ -28,7 +28,11 @@
             <ul>  
                 <li> <a href={{path('app_voiture_index')}}>Catalogue</a></li>
                 {% if app.user %}
-                    <li> <a href={{path('app_utilisateur_index')}}>Liste clients</a></li>
+                    {% if is_granted('ROLE_CLIENT') %}
+                            <li> <a href={{path('app_utilisateur_index')}}>Liste clients</a></li>
+                            <li> <a href={{path('app_type_index')}}>Liste types</a></li>
+                            <li> <a href={{path('app_reservation_index')}}>Liste réservations</a></li>
+                    {% endif %}
                     <li> <a href={{path('app_utilisateur_compte', {'id': app.user.id})}}>Mon compte</a></li>
                     <li> <a href={{path('app_logout')}}>Se déconnecter</a></li>
                 {% else %}
@@ -40,5 +44,36 @@
 
             {% block body %}{% endblock %}
 
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li> 
+                                Adresse
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Follow Us</h4>
+                        <div class="social-links">
+                                <a href="#"><i class="bi bi-facebook"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
+                                <a href="#"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Get help</h4>
+                        <ul>
+                            <li> 
+                                <a href="#">FAQ </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
     </body>
 </html>

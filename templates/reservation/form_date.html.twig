@@ -1,0 +1,14 @@
+
+
+{% block body %}
+    <h1></h1>
+
+    <form action="{{ path('app_reservation_new') }}" method="get">
+        <label for="datedebut">Du :</label>
+        <input type="date" name="datedebut" id="datedebut">
+        <label for="datefin">Au :</label>
+        <input type="date" name="datef" id="datefin">
+        <input type="submit" value="Valider">
+    </form>
+    
+{% endblock %}

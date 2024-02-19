@@ -4,25 +4,25 @@
 
 {% block body %}
     <h1> Mes réservations :</h1>
-
+{# 
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ reservation.id }}</td>
-            </tr>
-            <tr>
                 <th>PrixTT</th>
-                <td>{{ reservation.prixTT }}</td>
-            </tr>
-            <tr>
                 <th>Date_deb</th>
-                <td>{{ reservation.dateDeb ? reservation.dateDeb|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Date_fin</th>
-                <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d') : '' }}</td>
+
             </tr>
+            {% for reservation in res %}
+                <tr>
+                    <td>{{ reservation.id }}</td> 
+                    <td>{{ reservation.prixTT }}</td>
+                    <td>{{ reservation.dateDeb ? reservation.dateDeb|date('Y-m-d') : '' }}</td>
+                    <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d') : '' }}</td>
+                </tr>
+            {% endfor %}
+            
         </tbody>
     </table>
 
@@ -30,5 +30,5 @@
 
     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
 
-    {{ include('reservation/_delete_form.html.twig') }}
+    {{ include('reservation/_delete_form.html.twig') }} #}
 {% endblock %}

@@ -8,6 +8,7 @@ use App\Entity\Voiture;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,15 +19,15 @@ class ReservationType extends AbstractType
     {
         $builder
             ->add('prixTT', NumberType::class, ["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('date_deb', DateType::class, ["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
-            ->add('date_fin', DateType::class, ["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
+            ->add('date_deb', DateType::class, ["attr"=>["class"=>"form-control", ], "label_attr"=>["class"=>""]])
+            ->add('date_fin', DateType::class, ["attr"=>["class"=>"form-control", ], "label_attr"=>["class"=>""]])
             ->add('client', EntityType::class, [
                 'class' => Utilisateur::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
             ->add('voiture', EntityType::class, [
                 'class' => Voiture::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
         ;
     }

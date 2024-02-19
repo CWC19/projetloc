@@ -3,6 +3,8 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
+    <div class="ecran">
+    <div class="content-inside">
     <h1>Utilisateur index</h1>
 
     <table class="table">
@@ -11,7 +13,6 @@
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Permis</th>
@@ -31,7 +32,6 @@
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-                <td>{{ utilisateur.password }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
                 <td>{{ utilisateur.permis }}</td>
@@ -55,5 +55,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+    </div>
+    </div>
 {% endblock %}

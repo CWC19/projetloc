@@ -1,4 +1,5 @@
 .inscription{
+    padding: 2%;
     width: 40%;
     position: relative;
     top: 30%;
@@ -7,7 +8,6 @@
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.8);    /*  80%  */
     padding: 2%;
-    height: 100vh;
 }
 
 .btnins{
@@ -24,7 +24,5 @@
     height: auto;
   }
 
-.my-custom-class-for-errors{
-    color: red;
-}
 
+  
