@@ -25,7 +25,7 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/new', name: 'app_voiture_new', methods: ['GET', 'POST'])]
-    // #[IsGranted('ADMIN',  message: 'You are not allowed to access the admin dashboard.')]
+    #[IsGranted('ROLE_ADMIN',  message: 'You are not allowed to access the admin dashboard.')]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $voiture = new Voiture();
@@ -83,20 +83,19 @@ class VoitureController extends AbstractController
     #[Route('/{id}', name: 'app_voiture_show', methods: ['GET'])]
     public function show(Voiture $voiture, Request $request): Response
     {
-        $idv = $request->query->get('id');
-        var_dump($idv);
+
         return $this->render('voiture/show.html.twig', [
             'voiture' => $voiture,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_voiture_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Voiture $voiture, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(VoitureType::class, $voiture);
         $form->handleRequest($request);
-        $idv = $request->request->get('id');
-        var_dump($idv);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -112,6 +111,7 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_voiture_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Voiture $voiture, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$voiture->getId(), $request->request->get('_token'))) {

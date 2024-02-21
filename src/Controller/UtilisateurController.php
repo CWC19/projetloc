@@ -12,11 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
-{
+{ 
     #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
         return $this->render('utilisateur/index.html.twig', [
@@ -46,6 +48,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function show(Utilisateur $utilisateur): Response
     {
         return $this->render('utilisateur/show.html.twig', [
@@ -54,8 +57,9 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/compte/{id}', name: 'app_utilisateur_compte', methods: ['GET'])]
-    public function compte(Utilisateur $utilisateur): Response
+    public function compte(Request $request, Utilisateur $utilisateur): Response
     {
+        
         return $this->render('utilisateur/compte.html.twig', [
             'utilisateur' => $utilisateur,
             // 'reservation' => $reservation
@@ -63,15 +67,20 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
+    #[IsGranted('ROLE_USER')]
+
+    public function edit(Request $request, Utilisateur $utilisateur,UserPasswordHasherInterface $passEncoded, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(Utilisateur1Type::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+                $utilisateur->setPassword($passEncoded->hashPassword($utilisateur, $form->get('password')->getData()));
+                $entityManager->persist($utilisateur);
+                $entityManager->flush();
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('utilisateur/edit.html.twig', [
@@ -81,6 +90,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {

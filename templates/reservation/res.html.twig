@@ -1,31 +1,32 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %} #}
 
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
     <h1> Mes réservations :</h1>
-{# 
-    <table class="table">
+    
+    {{dump(reservations)}}
+    {# <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Client Id</th>
                 <th>PrixTT</th>
                 <th>Date_deb</th>
                 <th>Date_fin</th>
 
             </tr>
-            {% for reservation in res %}
+            {% for res in reservations %}
                 <tr>
-                    <td>{{ reservation.id }}</td> 
-                    <td>{{ reservation.prixTT }}</td>
-                    <td>{{ reservation.dateDeb ? reservation.dateDeb|date('Y-m-d') : '' }}</td>
-                    <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d') : '' }}</td>
+                    <td>{{ res.cllient_id }}</td> 
+                    <td>{{ res.prixTT }}</td>
+                    <td>{{ res.dateDeb ? res.dateDeb|date('Y-m-d') : '' }}</td>
+                    <td>{{ res.dateFin ? res.dateFin|date('Y-m-d') : '' }}</td>
                 </tr>
             {% endfor %}
             
         </tbody>
-    </table>
-
+    </table> #}
+{#  
     <a href="{{ path('app_reservation_index') }}">back to list</a>
 
     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>

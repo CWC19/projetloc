@@ -23,8 +23,10 @@
                 <td>{{ reservation.dateDeb ? reservation.dateDeb|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">Voir</a>
+                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">Modifier</a>
+                        {{ include('reservation/_delete_form.html.twig') }}
+
                 </td>
             </tr>
         {% else %}
@@ -34,6 +36,10 @@
         {% endfor %}
         </tbody>
     </table>
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_reservation_new') }}">Create new</a>
 
-    <a href="{{ path('app_reservation_new') }}">Create new</a>
+    {% endif %}
+    
 {% endblock %}

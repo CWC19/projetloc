@@ -45,4 +45,32 @@ class ReservationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    // public function findAllMyReservation(int $idc): array
+    // {
+    //     $entityManager = $this->getEntityManager();
+
+    //     $query = $entityManager->createQuery(
+    //         'SELECT client_id, voiture_id, prix_tt, date_deb, date_fin 
+    //         FROM App\Entity\Reservation r
+    //         WHERE r.client_id = :idc'
+    //     )->setParameter('idc', $idc);
+
+    //     // returns an array of Product objects
+    //     return $query->getResult();
+    // }
+
+    public function findByClientId(int $clientId): array
+{
+    $entityManager = $this->getDoctrine()->getManager();
+
+    $query = $entityManager->createQueryBuilder()
+        ->select('r.client_id', 'r.voiture_id', 'r.prix_tt', 'r.date_deb', 'r.date_fin')
+        ->from('App\Entity\Reservation', 'r')
+        ->where('r.client_id = :clientId')
+        ->setParameter('clientId', $clientId)
+        ->getQuery();
+
+    return $query->getResult();
+}
 }

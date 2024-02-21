@@ -24,14 +24,15 @@
     <body>
         <nav>
             
-            <a class="logo" href= >LoVo</a>
+            <a class="logo" href={{path('app_accueil')}} >LoVo</a>
             <ul>  
                 <li> <a href={{path('app_voiture_index')}}>Catalogue</a></li>
                 {% if app.user %}
-                    {% if is_granted('ROLE_CLIENT') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                             <li> <a href={{path('app_utilisateur_index')}}>Liste clients</a></li>
                             <li> <a href={{path('app_type_index')}}>Liste types</a></li>
                             <li> <a href={{path('app_reservation_index')}}>Liste réservations</a></li>
+                            <li> <a href={{path('app_utilisateur_index')}}>Liste utilisateurs</a></li>
                     {% endif %}
                     <li> <a href={{path('app_utilisateur_compte', {'id': app.user.id})}}>Mon compte</a></li>
                     <li> <a href={{path('app_logout')}}>Se déconnecter</a></li>
@@ -41,7 +42,7 @@
                 {% endif %}
             </ul>
         </nav>
-
+        
             {% block body %}{% endblock %}
 
         <footer class="footer">

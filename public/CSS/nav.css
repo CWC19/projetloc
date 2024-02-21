@@ -13,6 +13,7 @@ nav{
 }
 
 .logo{
+    font-family: 'Cormorant Garamond', serif;
     font-size: 35px;
     line-height: 80px;
     padding: 0 100px;
@@ -90,3 +91,4 @@ nav ul li a:hover{
     font-family: 'Cormorant Garamond', serif;
     list-style: none;
 }
+

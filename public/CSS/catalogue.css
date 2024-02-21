@@ -68,3 +68,13 @@
     box-shadow: black 2px 2px;
     transition:.5s;
 }
+
+
+
+.actions{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1%;
+    margin-left: 10%;
+    /* grid-auto-rows: minmax(100px, auto); */
+}

@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/type')]
+#[IsGranted('ROLE_ADMIN')]
 class TypeController extends AbstractController
 {
     #[Route('/', name: 'app_type_index', methods: ['GET'])]
@@ -45,7 +46,6 @@ class TypeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_type_show', methods: ['GET'])]
-    // #[IsGranted('ROLE_')]
     public function show(Type $type): Response
     {
         return $this->render('type/show.html.twig', [
@@ -54,7 +54,6 @@ class TypeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_type_edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Type $type, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TypeType::class, $type);
@@ -73,7 +72,6 @@ class TypeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_type_delete', methods: ['POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Type $type, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$type->getId(), $request->request->get('_token'))) {

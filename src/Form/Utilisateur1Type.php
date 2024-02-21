@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType as TypeDateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -32,7 +33,15 @@ class Utilisateur1Type extends AbstractType
             ->add('dof', TypeDateType::class,["attr"=>["class"=>"form-control col-md-6"], 
                     "label"=>"Date de naissance :", 
                     "label_attr"=>["class"=>""]])
-            ->add('sexe', TextType::class,["attr"=>["class"=>"form-control col-md-6"], "label_attr"=>["class"=>""]])
+            ->add('sexe', ChoiceType::class, [
+                'choices' => [
+                    'Femme' => 'femme',
+                    'Homme' => 'homme',
+                ],
+                'expanded' => true, // Permet de rendre les cases à cocher au lieu d'un menu déroulant
+                'label' => 'Genre', // Libellé du champ
+                'required' => true, // Champ requis
+            ])
             ->add('tel', TelType::class,["attr"=>["class"=>"form-control"], "label"=>"N° de téléphone :", "label_attr"=>["class"=>""]])
             ->add('adresse',TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
             ->add('ville', TextType::class,["attr"=>["class"=>"form-control col-md-4"], "label_attr"=>["class"=>""]])
@@ -41,14 +50,15 @@ class Utilisateur1Type extends AbstractType
                 "attr"=>["class"=>"form-control col-md-4"],
                 "multiple"=>true,
                 "choices"=>[
+                    
                     "France"=>"France", //"label"->"valeur" (valeur=stocker dans bdd)
                     "Espagne"=>"Espagne"
                 ]
             ])            
             ->add('password',RepeatedType::class,[
-                'constraints' => [
-                    new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/', $message="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et 12 caractères. ")
-                ], 
+                // 'constraints' => [
+                //     new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/', $message="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et 12 caractères. ")
+                // ], 
                 "type"=>PasswordType::class,
                 "attr"=>["class"=>"form-control col-md-6"],
                 "first_options"=>["label"=>"Mot de passe","attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]],

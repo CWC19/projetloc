@@ -27,7 +27,7 @@ class VoitureType extends AbstractType
                 'mapped' => false, //importer image
                 'constraints' => [
                     new File([
-                        'maxSize' => '8Mi', //taille max
+                        'maxSize' => '3045K', //taille max
                         'mimeTypes' => [ //type d'elem pouvant etre importées
                             'image/gif',
                             'image/jpeg',
@@ -44,7 +44,7 @@ class VoitureType extends AbstractType
                 'mapped' => false, //importer image
                 'constraints' => [
                     new File([
-                        'maxSize' => '8Mi', //taille max
+                        'maxSize' => '3045k', //taille max
                         'mimeTypes' => [ //type d'elem pouvant etre importées
                             'image/gif',
                             'image/jpeg',
@@ -60,7 +60,7 @@ class VoitureType extends AbstractType
                 'mapped' => false, //importer image
                 'constraints' => [
                     new File([
-                        'maxSize' => '8Mi', //taille max
+                        'maxSize' => '3045k', //taille max
                         'mimeTypes' => [ //type d'elem pouvant etre importées
                             'image/gif',
                             'image/jpeg',
