@@ -27,10 +27,11 @@ class VoitureRepository extends ServiceEntityRepository
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
+//            ->join('v.type_id', 't' )
+//            ->andWhere('t.id = :val')
 //            ->setParameter('val', $value)
 //            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
+//         //    ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;

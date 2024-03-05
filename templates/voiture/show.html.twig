@@ -3,43 +3,34 @@
 {% block title %}Voiture{% endblock %}
 
 {% block body %}
-    <h1>Voiture</h1>
         {# {{ include('reservation/form_date.html.twig') }} #}
 
-    <table class="table">
-    
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ voiture.id }}</td>
-            </tr>
-            <tr>
-                <th>Immat</th>
-                <td>{{ voiture.immat }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ voiture.prix }}</td>
-            </tr>
-            <tr>
-                <th>Couleur</th>
-                <td>{{ voiture.couleur }}</td>
-            </tr>
-            <tr>
-                <th>Photo1</th>
-                <td><img src={{asset('IMAGES/'~ voiture.photo1)}} alt="photo1" width="100px"></td>
-            </tr>
-            <tr>
-                <th>Photo2</th>
-                <td><img src={{asset('IMAGES/'~ voiture.photo2)}} alt="photo2" width="100px"></td>
-            </tr>
-            <tr>
-                <th>Photo3</th>
-                <td><img src={{asset('IMAGES/'~ voiture.photo3)}} alt="photo3" width="100px"></td>
+    <div class="page">
+        <div class="show-slide">
+                <div class="slide">
+                    <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1" alt="photo1" width="200px">
+                    <img src={{asset('IMAGES/'~ voiture.photo2)}} id="slide-1" alt="photo2" width="200px">
+                    <img src={{asset('IMAGES/'~ voiture.photo3)}} id="slide-1" alt="photo3" width="200px">
+                </div>
+                <div class="slide-nav">
+                    <a href="#slide-1"></a>
+                    <a href="#slide-2"></a>
+                    <a href="#slide-3"></a>
+                </div>
+            </div>
+        </div>
+        {# {{type.id}} #}
+        {# {{type.marque}}
+        {{type.model}} #}
+        {{dump(type)}}
+        {{ voiture.id }}
+        {{ voiture.immat }}
+        {{ voiture.prix }}
+        {{ voiture.couleur }}
+        
 
-            </tr>
-        </tbody>
-    </table>
+        
+
     <form action="{{ path('app_reservation_new') }}" method="get">
         <label for="datedebut">Du :</label>
         <input type="date" name="datedebut" id="datedebut">
@@ -53,7 +44,7 @@
     <a href="{{ path('app_voiture_index') }}">Retour au catalogue</a>
     {# <a href="{{ path('app_reservation_new', {'idv':  voiture.id } ) }}">Réserver</a> #}
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">edit</a> 
+        <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">Modifier</a> 
         {{ include('voiture/_delete_form.html.twig') }}
     {% endif %}
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Voiture;
 use App\Form\VoitureType;
+use App\Repository\TypeRepository;
 use App\Repository\VoitureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,7 @@ class VoitureController extends AbstractController
     #[Route('/', name: 'app_voiture_index', methods: ['GET'])]
     public function index(VoitureRepository $voitureRepository): Response
     {
+        
         return $this->render('voiture/index.html.twig', [
             'voitures' => $voitureRepository->findAll(),
         ]);
@@ -81,11 +83,16 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_voiture_show', methods: ['GET'])]
-    public function show(Voiture $voiture, Request $request): Response
+    public function show(Voiture $voiture, Request $request, VoitureRepository $voitureRepository, TypeRepository $typeRepository): Response
     {
-
+        
+        $num = $request->query->get('id');
+        var_dump($num);
         return $this->render('voiture/show.html.twig', [
             'voiture' => $voiture,
+            'type' => $typeRepository->findBy(
+                ["id" => $num]
+           ),
         ]);
     }
 

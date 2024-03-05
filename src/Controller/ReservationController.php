@@ -28,30 +28,46 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[Route('/mesres', name: 'app_mes_reservations', methods: ['GET'])]
+    public function mesres(ReservationRepository $reservationRepository): Response
+    {
+        return $this->render('reservation/res.html.twig', [
+            'reservations' => $reservationRepository->findBy(
+                     ["client" => $this->getUser()]
+                ),
+        ]);
+    }
+
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reservation = new Reservation();
         $id= $request->query->all(); 
-        // var_dump($id);
+        var_dump($id);
         $idd= $request->query->get('idv'); 
-        // var_dump($idd);
+        var_dump($idd);
         $pv= $request->query->get('prixv'); 
-        // var_dump($pv);
+        var_dump($pv);
         $dd= strtotime($request->query->get('datedebut')); 
-        // var_dump($dd);
+        var_dump($dd);
         $df= strtotime($request->query->get('datef')); 
-        // var_dump($df);
-        $reservation->setClient($this->getUser());
+        var_dump($df);
         
-        // $reservation->setVoiture($id);
         if (!empty($df) && !empty($dd)) {
             $nbj = ($df - $dd)/86400;
             // var_dump($nbj);
         }
+        $dad = ($request->query->get('datedebut'));
+        $daf = ($request->query->get('datef'));
+        // var_dump($dad);
         $prix = $nbj * $pv;
         $reservation->setPrixTT($prix);
+        // $reservation->setVoiture($idd);
+        $reservation->setClient($this->getUser());
+        // $reservation->setDateDeb($dad);
+        // $reservation->setDateDeb($daf);
+        
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,6 +80,9 @@ class ReservationController extends AbstractController
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
+            'prix' => $prix,
+            'dd' => $dad,
+            'df'=>$daf
 
             
         ]);
@@ -117,39 +136,5 @@ class ReservationController extends AbstractController
     //     ]);
     // }
 
-    // #[Route('/res/{id}', name: 'app_reservation_res', methods: ['GET'])]
-    // public function res(Reservation $reservation, EntityManagerInterface $entityManager, Request $request): Response
-    // {
-    //     $id= $request->query->get('id'); var_dump($id);
-    //     $res = $entityManager->getRepository(Reservation::class)->findAllMyReservation($id);
-    //     var_dump($res);
-    //     return $this->render('reservation/res.html.twig', [
-    //         // 'reservation' => $reservation,
-    //         'res' => $res,
-    //     ]);
-    // }
-
-    // #[Route('/res/{id}', name: 'app_reservation_res', methods: ['GET'])]
-    // public function res(Reservation $reservation, EntityManagerInterface $entityManager): Response
-    // {
-    //     return $this->render('reservation/res.html.twig', [
-    //         'reservation' => $reservation,
-            
-    //     ]);
-    // }
     
-    // #[Route('/res/{id}', name: 'app_reservation_res')]
-    // public function getClientReservations(int $id, ReservationRepository $reservationRepository): Response
-    // {
-        
-    //     // Appel de la méthode pour récupérer les réservations du client
-    //     $reservations = $reservationRepository->findByClientId($id);
-    //     var_dump($reservations);
-    //     // Vous pouvez faire d'autres traitements avec les résultats obtenus
-
-    //     // Retourne une réponse, vous pouvez renvoyer des données dans un template Twig
-    //     return $this->render('reservation/res.html.twig', [
-    //         'reservations' => $reservations,
-    //     ]);
-    // }
 }

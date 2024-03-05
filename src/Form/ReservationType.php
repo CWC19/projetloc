@@ -18,7 +18,7 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prixTT', NumberType::class, ["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
+            ->add('prixTT', HiddenType::class, ["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
             ->add('date_deb', DateType::class, ["attr"=>["class"=>"form-control", ], "label_attr"=>["class"=>""]])
             ->add('date_fin', DateType::class, ["attr"=>["class"=>"form-control", ], "label_attr"=>["class"=>""]])
             ->add('client', EntityType::class, [

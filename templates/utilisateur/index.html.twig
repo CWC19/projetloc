@@ -43,8 +43,8 @@
                 <td>{{ utilisateur.cp }}</td>
                 <td>{{ utilisateur.pays ? utilisateur.pays|json_encode : ''}}</td>
                 <td>
-                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
+                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-success">Voir</a>
+                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-warning">Modifier</a>
                     {{ include('utilisateur/_delete_form.html.twig') }}
 
                 </td>

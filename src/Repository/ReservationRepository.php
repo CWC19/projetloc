@@ -60,17 +60,17 @@ class ReservationRepository extends ServiceEntityRepository
     //     return $query->getResult();
     // }
 
-    public function findByClientId(int $clientId): array
-{
-    $entityManager = $this->getDoctrine()->getManager();
+//     public function findByClientId(int $clientId): array
+// {
+//     $entityManager = $this->getDoctrine()->getManager();
 
-    $query = $entityManager->createQueryBuilder()
-        ->select('r.client_id', 'r.voiture_id', 'r.prix_tt', 'r.date_deb', 'r.date_fin')
-        ->from('App\Entity\Reservation', 'r')
-        ->where('r.client_id = :clientId')
-        ->setParameter('clientId', $clientId)
-        ->getQuery();
+//     $query = $entityManager->createQueryBuilder()
+//         ->select('r.client_id', 'r.voiture_id', 'r.prix_tt', 'r.date_deb', 'r.date_fin')
+//         ->from('App\Entity\Reservation', 'r')
+//         ->where('r.client_id = :clientId')
+//         ->setParameter('clientId', $clientId)
+//         ->getQuery();
 
-    return $query->getResult();
-}
+//     return $query->getResult();
+// }
 }

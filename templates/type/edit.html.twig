@@ -3,11 +3,15 @@
 {% block title %}Edit Type{% endblock %}
 
 {% block body %}
-    <h1>Edit Type</h1>
+    <h3 class="text-center">Modifier le type de véhicule</h3>
+<div class=" d-flex justify-content-sm-center ">
 
-    {{ include('type/_form.html.twig', {'button_label': 'Update'}) }}
-
+    {{ include('type/_form.html.twig', {'button_label': 'Modifier'}) }}
+</div>
+<div class="text-center">
+    {{ include('type/_delete_form.html.twig') }}
     <a href="{{ path('app_type_index') }}">back to list</a>
 
-    {{ include('type/_delete_form.html.twig') }}
+    </div>
+
 {% endblock %}
