@@ -23,6 +23,10 @@ class Avis
     #[ORM\Column(type: Types::TEXT)]
     private ?string $texte = null;
 
+    #[ORM\ManyToOne(inversedBy: 'avis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $auteur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Avis
     public function setTexte(string $texte): static
     {
         $this->texte = $texte;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Utilisateur $auteur): static
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }
