@@ -62,38 +62,30 @@ nav ul li a:hover{
     transition: .5s;
 } */
 
-.footer{
+footer {
     background-color: #283618;
-    height: 100px;
+    height: 120px;
     width: 100%;
-}
-
-.row{
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 30%;
-}
-
-.footer-col{
-    width: 30%;
-    padding: 1% 5%;
-}
-
-.footer-col h4{
-    font-size: 18px;
     color: white;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500px;
-    position: relative;
 }
 
-.footer ul{
-    font-family: 'Cormorant Garamond', serif;
-    list-style: none;
+footer .container{
+    display: flex;
+
 }
 
-.ecran{
-    width: 100vh;
+footer .container .cont {
+    margin: 1% 13%;
+}
+
+footer .container p{
+
+    color: #968633;
+    font-family: 'Cormorant Garamond', serif;
+    
+}
+
+footer .container .titre{
+    text-decoration: underline;
+    font-weight: bold;
 }

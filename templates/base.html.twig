@@ -6,6 +6,7 @@
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ ('../css/nav.css') }}">
         <link rel="stylesheet" href="{{ ('../css/catalogue.css') }}">
+        <link rel="stylesheet" href="{{ ('../css/avis.css') }}">
         <link rel="stylesheet" href="{{ ('../css/login.css') }}">
         <link rel="stylesheet" href="{{ ('../css/inscription.css') }}">
         <link rel="stylesheet" href="{{ ('../css/accueil.css') }}">
@@ -46,39 +47,23 @@
         
             {% block body %}{% endblock %}
 
-        <footer class="footer">
+        <footer>
             <div class="container">
-                <div class="row">
-                    <div class="footer-col">
-                        <h4>Company</h4>
-                        <ul>
-                            <li> 
-                                Adresse
-                            </li>
-                            <li> 
-                                <a href={{path('app_avis')}}>Avis</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Follow Us</h4>
-                        <div class="social-links">
-                                <a href="#"><i class="bi bi-facebook"></i></a>
-                                <a href="#"><i class="bi bi-instagram"></i></a>
-                                <a href="#"><i class="bi bi-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Get help</h4>
-                        <ul>
-                            <li> 
-                                <a href="#">FAQ </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="cont">
+                    <p class = "titre"> Coordonnées </p>
+                    <p>Tél.: 061487....</p>
+                    <p>14 rue du chateau</p>
+                    <p>75015, Paris</p>
+                </div>
+                <div class="cont">
+                    <p> &copy;  {{"now" | date('Y')}} </p>
+                </div>
+                <div class="cont">
+                    <p class = "titre"> Avis</p>
+                    <p>Laisser un avis</p>
+                    <p>Consulter les avis</p>
                 </div>
             </div>
-
         </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

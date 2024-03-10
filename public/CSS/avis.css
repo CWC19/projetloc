@@ -1,0 +1,13 @@
+.avis{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4%;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 4%;
+}
+
+.avi{
+    border: 2px solid black;
+    padding: 2%;
+    margin: 1%;
+}

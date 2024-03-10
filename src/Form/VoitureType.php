@@ -23,6 +23,7 @@ class VoitureType extends AbstractType
             ->add('prix', NumberType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
             ->add('couleur',ColorType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
             ->add('photo1',  FileType::class, [
+                'required' => false,
                 'label' => 'photo 1',
                 'mapped' => false, //importer image
                 'constraints' => [
@@ -56,6 +57,7 @@ class VoitureType extends AbstractType
                 ],
             ] )
             ->add('photo3',  FileType::class, [
+                'required' => false,
                 'label' => 'photo 3',
                 'mapped' => false, //importer image
                 'constraints' => [

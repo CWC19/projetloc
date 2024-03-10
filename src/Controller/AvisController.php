@@ -22,10 +22,22 @@ class AvisController extends AbstractController
         ]);
     }
 
+    #[Route('/mesavis', name: 'app_mes_avis', methods: ['GET'])]
+    public function mesavis(AvisRepository $avisRepository): Response
+    {
+        return $this->render('avis/mesavis.html.twig', [
+            'avis' => $avisRepository->findBy(
+                     ["auteur" => $this->getUser()]
+                ),
+        ]);
+    }
+
     #[Route('/new', name: 'app_avis_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $avi = new Avis();
+        $avi->setAuteur($this->getUser());
+        $avi->setDateP(new \DateTime('now'));
         $form = $this->createForm(Avis1Type::class, $avi);
         $form->handleRequest($request);
 

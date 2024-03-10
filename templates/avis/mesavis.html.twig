@@ -1,23 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Avis index{% endblock %}
+{% block title %}Avis{% endblock %}
 
 {% block body %}
-    <h1>Avis :</h1>
-        <div class="avis">
+    <h1> Mes avis :</h1>
+    
+    {# {{dump(avis)}} #}
+    <div class="avis">
             {% for avi in avis %}
                 <div class="avi">
-                    {{app.user.nom}} {{app.user.prenom}}
-                    <br>
+
                     Avis numéro {{ avi.id }}
-                    <br>
                     Date de publication : {{ avi.dateP ? avi.dateP|date('d-m-Y') : '' }}
-                    <br>
                     Note : {{ avi.note }}/5
-                    <br>
                     Avis : {{ avi.texte }} 
-                    <br>
                     <a href="{{ path('app_avis_show', {'id': avi.id}) }}"  class="btn btn-success">+</a>
+                    <a href="{{ path('app_avis_edit', {'id': avi.id}) }}"  class="btn btn-warning">Modifier</a>
                 </div>
             {% else %}
             
@@ -26,7 +24,8 @@
             {% endfor %}
         
         </div>
-        
+ 
+    <a href="{{ path('app_avis_index') }}">back to list</a>
 
-    <a href="{{ path('app_avis_new') }}" class="btn btn-info">Laisser un avis</a>
+    
 {% endblock %}

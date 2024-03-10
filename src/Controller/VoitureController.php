@@ -6,6 +6,7 @@ use App\Entity\Voiture;
 use App\Form\VoitureType;
 use App\Repository\TypeRepository;
 use App\Repository\VoitureRepository;
+use ContainerZ881acN\getVoitureTypeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,7 +86,6 @@ class VoitureController extends AbstractController
     #[Route('/{id}', name: 'app_voiture_show', methods: ['GET'])]
     public function show(Voiture $voiture, Request $request, VoitureRepository $voitureRepository, TypeRepository $typeRepository): Response
     {
-        
         $num = $request->query->get('id');
         var_dump($num);
         return $this->render('voiture/show.html.twig', [
@@ -98,13 +98,52 @@ class VoitureController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_voiture_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function edit(Request $request, Voiture $voiture, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Voiture $voiture, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-
+        $i1 = $voiture->getPhoto1();
+        $voiture->setPhoto1($i1);
+        var_dump($i1);
         $form = $this->createForm(VoitureType::class, $voiture);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img1 = $form->get('photo1')->getData();
+            if($img1){
+                $originalFilename = pathinfo($img1->getClientOriginalName(), PATHINFO_FILENAME); //recup nom du fichier
+                $safeFilename = $slugger->slug($originalFilename); //recup nom du fichier sans ext
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img1->guessExtension();//nom du fichier, uniqid = nombre aleatoire(=random) et ext
+                $img1->move(
+                    $this->getParameter('voiture_directory'), //config services.yaml etudiant_directory=public/uploads
+                    $newFilename
+                );
+                $voiture->setPhoto1($newFilename);
+            }
+            
+            $img2 = $form->get('photo2')->getData();
+            if($img2){
+                $originalFilename = pathinfo($img2->getClientOriginalName(), PATHINFO_FILENAME); //recup nom du fichier
+                $safeFilename = $slugger->slug($originalFilename); //recup nom du fichier sans ext
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img2->guessExtension();//nom du fichier, uniqid = nombre aleatoire(=random) et ext
+                $img2->move(
+                    $this->getParameter('voiture_directory'), //config services.yaml etudiant_directory=public/uploads
+                    $newFilename
+                );
+                $voiture->setPhoto2($newFilename);
+            }
+            
+            $img3 = $form->get('photo3')->getData();
+            if($img3){
+                $originalFilename = pathinfo($img3->getClientOriginalName(), PATHINFO_FILENAME); //recup nom du fichier
+                $safeFilename = $slugger->slug($originalFilename); //recup nom du fichier sans ext
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img3->guessExtension();//nom du fichier, uniqid = nombre aleatoire(=random) et ext
+                $img3->move(
+                    $this->getParameter('voiture_directory'), //config services.yaml etudiant_directory=public/uploads
+                    $newFilename
+                );
+                $voiture->setPhoto3($newFilename);
+            }
+            
+            $entityManager->persist($voiture);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
