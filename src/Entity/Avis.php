@@ -27,6 +27,10 @@ class Avis
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $auteur = null;
 
+    #[ORM\ManyToOne(inversedBy: 'avis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Reservation $reservation_id = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +80,18 @@ class Avis
     public function setAuteur(?Utilisateur $auteur): static
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getReservationId(): ?Reservation
+    {
+        return $this->reservation_id;
+    }
+
+    public function setReservationId(?Reservation $reservation_id): static
+    {
+        $this->reservation_id = $reservation_id;
 
         return $this;
     }

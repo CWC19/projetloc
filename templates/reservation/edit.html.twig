@@ -3,13 +3,14 @@
 {% block title %}Edit Reservation{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Edit Reservation</h1>
 
-    {{ include('reservation/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('reservation/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
+    <a href="{{ path('app_reservation_index') }}">Retour</a>
     {% if is_granted('ROLE_ADMIN') %}
         {{ include('reservation/_delete_form.html.twig') }}
     {% endif %}
-    
+    </div>
 {% endblock %}

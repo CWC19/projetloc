@@ -34,6 +34,7 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateur->setRoles(['Client']);
             $utilisateur->setPassword($passEncoded->hashPassword($utilisateur, $form->get('password')->getData()));
             $entityManager->persist($utilisateur);
             $entityManager->flush();
@@ -71,10 +72,20 @@ class UtilisateurController extends AbstractController
 
     public function edit(Request $request, Utilisateur $utilisateur,UserPasswordHasherInterface $passEncoded, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Utilisateur1Type::class, $utilisateur);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            // Créer le formulaire en permettant la modification du rôle
+            $form = $this->createForm(Utilisateur1Type::class, $utilisateur);
+        } else {
+            // Créer le formulaire en rendant le champ de sélection du rôle non modifiable
+            $form = $this->createForm(Utilisateur1Type::class, $utilisateur, [
+                'disabled_role_field' => true,
+            ]);
+        }
+        // $form = $this->createForm(Utilisateur1Type::class, $utilisateur);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+                
                 $utilisateur->setPassword($passEncoded->hashPassword($utilisateur, $form->get('password')->getData()));
                 $entityManager->persist($utilisateur);
                 $entityManager->flush();

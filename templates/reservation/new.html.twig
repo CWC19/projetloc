@@ -5,14 +5,9 @@
 {% block body %}
     <h1>Réserver</h1>
 
-    <p>Du : {{dd}} - Au : {{df}}</p>
-    <p>prix : {{prix}}</p>
 
-    {{ include('reservation/_form.html.twig') }}
+    {{ include('reservation/_form.html.twig', {'button_label': 'Réserver'}) }}
     
    
-        {# {{ dump(client) }} #}
-    
-    
     <a href="{{ path('app_reservation_index') }}">Retour au catalogue</a>
 {% endblock %}

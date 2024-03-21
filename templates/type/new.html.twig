@@ -3,11 +3,13 @@
 {% block title %}New Type{% endblock %}
 
 {% block body %}
-    <div class="col-md-6 ">
+<div class="container">
+
+    {# <div class="col-md-6 "> #}
     <h3 class="text-center">Ajouter un type de véhicule</h3>
 
     {{ include('type/_form.html.twig') }}
 
-    <a href="{{ path('app_type_index') }}">back to list</a>
+    <a href="{{ path('app_type_index') }}" class="btn btn-info">Retour</a>
     </div>
 {% endblock %}

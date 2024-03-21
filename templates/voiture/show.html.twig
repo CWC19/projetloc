@@ -4,6 +4,7 @@
 
 {% block body %}
         {# {{ include('reservation/form_date.html.twig') }} #}
+<div class="container">
 
     <div class="page">
         <div class="show-slide">
@@ -22,33 +23,36 @@
         {# {{type.id}} #}
         {# {{type.marque}}
         {{type.model}} #}
-        {{dump(type)}}
+        {# {{dump(type)}} #}
         {{ voiture.id }}
         {{ voiture.immat }}
         {{ voiture.prix }}
         {{ voiture.couleur }}
-        
+        {{modele}}
+        {{marque}}
+        {{puissance}}
+        {{carburant}}
+        {{bv}}
+        {{categorie}}
 
         
 
     <form action="{{ path('app_reservation_new') }}" method="get">
         <label for="datedebut">Du :</label>
-        <input type="date" name="datedebut" id="datedebut">
+        <input type="date" name="datedebut" id="datedebut" required>
         <label for="datefin">Au :</label>
-        <input type="date" name="datef" id="datefin">
+        <input type="date" name="datef" id="datefin" required>
         <input type="hidden" value="{{voiture.id}}" name="idv">
         <input type="hidden" value="{{voiture.prix}}" name="prixv">
-        <input type="submit" value="Réserver">
+        <input type="submit" value="Rechercher">
     </form>
 
-    <a href="{{ path('app_voiture_index') }}">Retour au catalogue</a>
-    {# <a href="{{ path('app_reservation_new', {'idv':  voiture.id } ) }}">Réserver</a> #}
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_voiture_edit', {'id': voiture.id}) }}">Modifier</a> 
         {{ include('voiture/_delete_form.html.twig') }}
     {% endif %}
 
-
+</div>
 
    
 {% endblock %}

@@ -3,6 +3,8 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
+<div class="container">
+
     <h1>Mon compte </h1>
     <h2>Mes informations : </h2>
 
@@ -55,5 +57,5 @@
     {{ include('utilisateur/_delete_form.html.twig') }}
     <a href="{{ path('app_mes_reservations') }}"><button type="button" class="btn btn-info">Accéder à mes réservations</button></a>
     <a href="{{ path('app_mes_avis') }}"><button type="button" class="btn btn-info">Accéder à mes avis</button></a>
-
+</div>
 {% endblock %}

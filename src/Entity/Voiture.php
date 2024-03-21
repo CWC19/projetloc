@@ -6,6 +6,7 @@ use App\Repository\VoitureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 class Voiture
@@ -16,9 +17,22 @@ class Voiture
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern:"/^[a-zA-Z0-9]*$/",
+        message:"Veuillez saisir uniquement des chiffres et des lettres."
+    )]
+    #[Assert\Length(
+        min:7,
+        max:7,
+        exactMessage:"La longueur doit être exactement de {{ limit }} caractères."
+    )]
     private ?string $immat = null;
 
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern:"/^[0-9]*$/",
+        message:"Veuillez saisir uniquement des chiffres."
+    )]
     private ?float $prix = null;
 
     #[ORM\Column(length: 255)]

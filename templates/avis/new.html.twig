@@ -3,9 +3,12 @@
 {% block title %}New Avis{% endblock %}
 
 {% block body %}
-    <h1>Laisser un avis :</h1>
+<div class="container">
+
+    <h1>Laisser un avis </h1>
 
     {{ include('avis/_form.html.twig') }}
 
-    <a href="{{ path('app_avis_index') }}">Voir tous les avis</a>
+    <a href="{{ path('app_avis_index') }}">Retour</a>
+    </div>
 {% endblock %}

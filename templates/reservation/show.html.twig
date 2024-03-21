@@ -3,32 +3,38 @@
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
+<div class="container">
+
     <h1>Reservation</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Numéro de réservation :</th>
                 <td>{{ reservation.id }}</td>
             </tr>
             <tr>
-                <th>PrixTT</th>
-                <td>{{ reservation.prixTT }}</td>
+                <th>Information client :</th>
+                <td>{{ nom }} {{ prenom }} {{ sexe }} {{ dof ? dof|date('d-m-Y') : '' }} {{ permis }} {{ email }}</td>
             </tr>
             <tr>
-                <th>Date_deb</th>
-                <td>{{ reservation.dateDeb ? reservation.dateDeb|date('Y-m-d') : '' }}</td>
+                <th>Prix</th>
+                <td>{{ reservation.prixTT }} €</td>
             </tr>
             <tr>
-                <th>Date_fin</th>
-                <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d') : '' }}</td>
+                <th>Dates </th>
+                <td>Du : {{ reservation.dateDeb ? reservation.dateDeb|date('d-m-Y') : '' }} - Au : {{ reservation.dateFin ? reservation.dateFin|date('d-m-Y') : '' }}</td>
             </tr>
+            
         </tbody>
     </table>
+    {% set dateJour = "now"|date("d-m-Y") %}
+    {% if dateJour < reservation.dateDeb|date("d-m-Y") %}
+        <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}"class="btn btn-warning">Modifier</a>
+        {{ include('reservation/_delete_form.html.twig') }}
+    {% endif %}
+    
+    
 
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
-
-    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
-
-    {{ include('reservation/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

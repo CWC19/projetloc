@@ -3,30 +3,38 @@
 {% block title %}Avis index{% endblock %}
 
 {% block body %}
-    <h1>Avis :</h1>
-        <div class="avis">
+<div class="container">
+
+    <h1 class='text-center'>Avis :</h1>
+        <div class="all">
             {% for avi in avis %}
-                <div class="avi">
-                    {{app.user.nom}} {{app.user.prenom}}
-                    <br>
-                    Avis numéro {{ avi.id }}
-                    <br>
-                    Date de publication : {{ avi.dateP ? avi.dateP|date('d-m-Y') : '' }}
-                    <br>
-                    Note : {{ avi.note }}/5
-                    <br>
-                    Avis : {{ avi.texte }} 
-                    <br>
-                    <a href="{{ path('app_avis_show', {'id': avi.id}) }}"  class="btn btn-success">+</a>
+                <div class="unique">
+                
+                    <p>Avis n°: {{ avi.id }}  {{ avi.dateP ? avi.dateP|date('Y-m-d') : '' }}</p>
+                    <p>{{ nom }} {{prenom}}</p>
+                    <p>{{ avi.note }}/5</p>
+                    <p>{{ avi.texte }}</p>
+                    
+                        <a href="{{ path('app_avis_show', {'id': avi.id}) }}" class="btn btn-success">En savoir +</a>
+                        {% if app.user %}
+                            {% if app.user.id == idaut %}
+                                <a href="{{ path('app_avis_edit', {'id': avi.id}) }}"class="btn btn-warning">Modifier</a>
+                            {% endif %}
+                        {% endif %}
+            
                 </div>
             {% else %}
-            
-                    <p>no records found</p>
+                
+                    no records found
                 
             {% endfor %}
-        
+
         </div>
         
+    {% if app.user %}
+        <a href="{{ path('app_avis_new') }}">Create new</a>
+    {% endif %}
+</div>
 
-    <a href="{{ path('app_avis_new') }}" class="btn btn-info">Laisser un avis</a>
+    
 {% endblock %}

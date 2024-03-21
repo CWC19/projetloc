@@ -21,6 +21,19 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findByCarAndDates($carId, $startDate, $endDate): ?Reservation
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.voiture = :voiture')
+            ->andWhere('r.date_deb <= :endDate')
+            ->andWhere('r.date_fin >= :startDate')
+            ->setParameter('voiture', $carId)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

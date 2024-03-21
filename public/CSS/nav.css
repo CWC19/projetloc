@@ -64,28 +64,32 @@ nav ul li a:hover{
 
 footer {
     background-color: #283618;
-    height: 120px;
+    height: 160px;
     width: 100%;
     color: white;
 }
 
-footer .container{
+footer .container-foot{
     display: flex;
 
 }
 
-footer .container .cont {
+footer .container-foot .cont {
     margin: 1% 13%;
 }
 
-footer .container p{
+footer .container-foot p{
 
     color: #968633;
     font-family: 'Cormorant Garamond', serif;
     
 }
 
-footer .container .titre{
+footer .container-foot .titre{
     text-decoration: underline;
     font-weight: bold;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link{
+    float: right;
 }

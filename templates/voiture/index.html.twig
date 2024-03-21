@@ -24,7 +24,14 @@
                     {{ voiture.id }}
                     {{ voiture.immat }}
                     {{ voiture.prix }}€/jour
-                    {{ voiture.couleur }}    
+                    {{ voiture.couleur }} 
+                    {{model}}
+                    {{marque}}
+                    {{puissance}}
+                    {{carburant}}
+                    {{bv}}
+                    {{categorie}}
+
                 </div>    
                 <div class="actions">
                         <a href="{{ path('app_voiture_show', {'id': voiture.id}) }}" class="btn btn-success">En savoir +</a>

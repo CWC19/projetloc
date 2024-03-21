@@ -3,6 +3,7 @@
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1> Mes réservations :</h1>
     
     {# {{dump(reservations)}} #}
@@ -19,7 +20,7 @@
             {% for reservation in reservations %}
                 <tr>
                     <td>{{ reservation.id}}</td> 
-                    <td>{{ reservation.prixTT }}</td>
+                    <td>{{ reservation.prixTT }}€</td>
                     <td>{{ reservation.dateDeb ? reservation.dateDeb|date('d-m-Y') : '' }}</td>
                     <td>{{ reservation.dateFin ? reservation.dateFin|date('d-m-Y') : '' }}</td>
                     <td>
@@ -34,5 +35,5 @@
  
     <a href="{{ path('app_reservation_index') }}">back to list</a>
 
-    
+    </div>
 {% endblock %}

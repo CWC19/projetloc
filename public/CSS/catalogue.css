@@ -4,6 +4,7 @@
     gap: 4%;
     grid-auto-rows: minmax(100px, auto);
     margin: 4%;
+    margin-bottom: 15%;
 }
 
 .unique{

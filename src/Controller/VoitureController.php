@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Type;
 use App\Entity\Voiture;
 use App\Form\VoitureType;
 use App\Repository\TypeRepository;
 use App\Repository\VoitureRepository;
 use ContainerZ881acN\getVoitureTypeService;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Voiture as EntityVoiture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +22,30 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class VoitureController extends AbstractController
 {
     #[Route('/', name: 'app_voiture_index', methods: ['GET'])]
-    public function index(VoitureRepository $voitureRepository): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        
+        $voitures = $entityManager->getRepository(Voiture::class)->findAll();
+        // Accéder aux informations de Type pour chaque voiture
+        foreach ($voitures as $voiture) {
+            $type = $voiture->getType();
+
+            // Accéder aux propriétés de Type comme ceci :
+            $marque = $type->getMarque();
+            $model = $type->getModel();
+            $puissance = $type->getPuissance();
+            $carburant = $type->getCarburant();
+            $bv = $type->getBoitevitesse();
+            $categorie = $type->getCategorie();
+        }
         return $this->render('voiture/index.html.twig', [
-            'voitures' => $voitureRepository->findAll(),
+            'voitures' => $voitures,
+            // 'type' => $type,
+          'marque' => $marque,
+         'model' => $model,
+            'puissance' => $puissance,
+            'carburant' => $carburant,
+            'bv' => $bv,
+            'categorie' => $categorie,
         ]);
     }
 
@@ -84,15 +106,27 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_voiture_show', methods: ['GET'])]
-    public function show(Voiture $voiture, Request $request, VoitureRepository $voitureRepository, TypeRepository $typeRepository): Response
+    public function show(Voiture $voiture, EntityManagerInterface $entityManager): Response
     {
-        $num = $request->query->get('id');
-        var_dump($num);
+        // Récupérer l'ID du type de la voiture
+        $typeId = $voiture->getType()->getId();
+        // Récupérer l'entité Type par son ID
+        $type = $entityManager->getRepository(Type::class)->find($typeId);
+        $marque = $type->getMarque();
+        $modele = $type->getModel();
+        $puissance = $type->getPuissance();
+        $carburant = $type->getCarburant();
+        $bv = $type->getBoitevitesse();
+        $categorie = $type->getCategorie();
+        
         return $this->render('voiture/show.html.twig', [
             'voiture' => $voiture,
-            'type' => $typeRepository->findBy(
-                ["id" => $num]
-           ),
+            'marque' => $marque,
+            'modele' => $modele,
+            'puissance' => $puissance,
+            'carburant' => $carburant,
+            'bv' => $bv,
+            'categorie' => $categorie,
         ]);
     }
 

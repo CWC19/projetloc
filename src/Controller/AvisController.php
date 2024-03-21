@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
-use App\Form\Avis1Type;
+use App\Entity\Reservation;
+use App\Form\AvisType;
 use App\Repository\AvisRepository;
+use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class AvisController extends AbstractController
 {
     #[Route('/', name: 'app_avis_index', methods: ['GET'])]
-    public function index(AvisRepository $avisRepository): Response
+    public function index(AvisRepository $avisRepository, EntityManagerInterface $entityManager): Response
     {
+        $avis = $entityManager->getRepository(Avis::class)->findAll();
+        foreach ($avis as $avi) {
+            $aut = $avi->getAuteur();
+            $idaut = $aut->getId();
+            $nom = $aut->getNom();
+            $prenom = $aut->getPrenom();
+            
+        }
         return $this->render('avis/index.html.twig', [
-            'avis' => $avisRepository->findAll(),
+            'avis' => $avis,
+            'idaut' => $idaut,
+            'nom' => $nom,
+            'prenom' => $prenom,
         ]);
     }
 
@@ -33,12 +46,17 @@ class AvisController extends AbstractController
     }
 
     #[Route('/new', name: 'app_avis_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
+        $res = $reservationRepository->findBy(["client" => $this->getUser()]);
+        if (!$res) {
+            throw $this->createNotFoundException('Vous n\'êtes pas autorisé à laisser un avis car vous n\'avez jamais effectué de réservation.');
+        }
+
         $avi = new Avis();
         $avi->setAuteur($this->getUser());
         $avi->setDateP(new \DateTime('now'));
-        $form = $this->createForm(Avis1Type::class, $avi);
+        $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,15 +75,22 @@ class AvisController extends AbstractController
     #[Route('/{id}', name: 'app_avis_show', methods: ['GET'])]
     public function show(Avis $avi): Response
     {
+            $aut = $avi->getAuteur();
+            $idaut = $aut->getId();
+            $nom = $aut->getNom();
+            $prenom = $aut->getPrenom();
         return $this->render('avis/show.html.twig', [
             'avi' => $avi,
+            'idaut' => $idaut,
+            'nom' => $nom,
+            'prenom' => $prenom,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_avis_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Avis $avi, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Avis1Type::class, $avi);
+        $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

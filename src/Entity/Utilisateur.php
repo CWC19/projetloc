@@ -33,17 +33,34 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Regex(
         pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/',
         match: true,
-        message: 'Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et 12 caractères.',
+        message: 'Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre, un caractère spécial parmis : "@$!%*?&" et 12 caractères.',
     )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern:"/^[a-zA-Z\-^¨]*$/",
+        message:"Seulement les lettres et ces caractères spéciaux '- ^ ¨' sont acceptés."
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern:"/^[a-zA-Z\-^¨]*$/",
+        message:"Seulement les lettres et ces caractères spéciaux '- ^ ¨' sont acceptés."
+    )]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Regex(
+        pattern:"/^[a-zA-Z0-9]*$/",
+        message:"Veuillez saisir uniquement des chiffres et des lettres."
+    )]
+    #[Assert\Length(
+        min:30,
+        max:30,
+        exactMessage:"La longueur doit être exactement de {{ limit }} caractères."
+    )]
     private ?string $permis = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -53,15 +70,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $sexe = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Regex(
+        pattern:"/^[0-9]*$/",
+        message:"Veuillez saisir uniquement des chiffres."
+    )]
     private ?float $tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern:"/^[a-zA-Z0-9\-^¨]*$/",
+        message:"Veuillez saisir uniquement des chiffres, lettres et ces caracères spéciaux : '- ^ ¨' ."
+    )]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern:"/^[a-zA-Z\-^¨]*$/",
+        message:"Seulement les lettres et ces caractères spéciaux '- ^ ¨' sont acceptés."
+    )]
     private ?string $ville = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Regex(
+        pattern:"/^[0-9]*$/",
+        message:"Veuillez saisir uniquement des chiffres."
+    )]
+    #[Assert\Length(
+        min:5,
+        max:5,
+        exactMessage:"La longueur doit être exactement de {{ limit }} caractères."
+    )]
     private ?float $cp = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Entity\Utilisateur;
+use App\Entity\Voiture;
 use App\Form\ReservationType;
 use App\Form\Utilisateur1Type;
 use App\Repository\ReservationRepository;
+use App\Repository\VoitureRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +24,16 @@ class ReservationController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(ReservationRepository $reservationRepository): Response
+    public function index(ReservationRepository $reservationRepository, EntityManagerInterface $entityManager): Response
     {
+        $reservations = $entityManager->getRepository(Reservation::class)->findAll();
+        $voitureIds = [];
+        foreach ($reservations as $reservation) {
+            $voitureIds[$reservation->getId()] = $reservation->getVoiture()->getId();     
+        }
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
+            'reservations' => $reservations,
+            'voitureIds' => $voitureIds,
         ]);
     }
 
@@ -40,19 +49,30 @@ class ReservationController extends AbstractController
 
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, VoitureRepository $voitureRepository, ReservationRepository $reservationRepository): Response
     {
+        
+        // Récupérer les données de la requête
+        $voitureId = $request->query->get('idv');
+        $dateDebut = new \DateTime($request->query->get('datedebut'));
+        $dateFin = new \DateTime($request->query->get('datef'));
+
+        // Vérifier si la voiture est déjà réservée pour ces dates
+        $existingReservation = $reservationRepository->findByCarAndDates($voitureId, $dateDebut, $dateFin);
+
+        if ($existingReservation) {
+            // Gérer le cas où la voiture est déjà réservée
+            // Retourner un message d'erreur ou rediriger l'utilisateur, par exemple
+            throw $this->createNotFoundException('La voiture n\'est pas disponible durant ces dates.');
+            return $this->redirectToRoute('app_voiture_index');
+        }
+
         $reservation = new Reservation();
         $id= $request->query->all(); 
-        var_dump($id);
-        $idd= $request->query->get('idv'); 
-        var_dump($idd);
         $pv= $request->query->get('prixv'); 
-        var_dump($pv);
+        $voitureId= $request->query->get('idv'); 
         $dd= strtotime($request->query->get('datedebut')); 
-        var_dump($dd);
         $df= strtotime($request->query->get('datef')); 
-        var_dump($df);
         
         if (!empty($df) && !empty($dd)) {
             $nbj = ($df - $dd)/86400;
@@ -63,18 +83,24 @@ class ReservationController extends AbstractController
         // var_dump($dad);
         $prix = $nbj * $pv;
         $reservation->setPrixTT($prix);
-        // $reservation->setVoiture($idd);
         $reservation->setClient($this->getUser());
-        // $reservation->setDateDeb($dad);
-        // $reservation->setDateDeb($daf);
+        $reservation->setDateDeb($dateDebut);
+        $reservation->setDateFin($dateFin);   
+
+        // Récupérez l'objet Voiture correspondant à partir de l'identifiant
+        $voiture = $voitureRepository->find($voitureId);
+        // Associez la voiture à la réservation
+        $reservation->setVoiture($voiture);
+
+
         
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($reservation);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
+            $reservationId = $reservation->getId();
+            return $this->redirectToRoute('app_reservation_show', ['id'=>$reservationId] , Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reservation/new.html.twig', [
@@ -90,10 +116,26 @@ class ReservationController extends AbstractController
 
     #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
-    public function show(Reservation $reservation): Response
+    public function show(Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
+        // Récupérer l'ID du type de la voiture
+        $clientId = $reservation->getClient()->getId();
+        // Récupérer l'entité Type par son ID
+        $client = $entityManager->getRepository(Utilisateur::class)->find($clientId);
+        $nom = $client->getNom();
+        $prenom = $client->getPrenom();
+        $email = $client->getEmail();
+        $dof = $client->getDof();
+        $permis = $client->getPermis();
+        $sexe = $client->getSexe();
         return $this->render('reservation/show.html.twig', [
             'reservation' => $reservation,
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'email' => $email,
+            'dof' => $dof,
+            'permis' => $permis,
+            'sexe' => $sexe,
         ]);
     }
 
