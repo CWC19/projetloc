@@ -18,15 +18,22 @@ class AvisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date_p', DateType::class, ["attr"=>["class"=>"form-control", ], "label" => "Date :", "label_attr"=>["class"=>""]])
-            ->add('note', RangeType::class, ["attr"=>["class"=>"form-control"],'attr' => [
+            ->add('date_p', DateType::class, [
+                'disabled' => true,
+                "attr"=>["class"=>"form-control", ], "label" => "Date :", "label_attr"=>["class"=>""]])
+            ->add('note', RangeType::class, [
+                "attr"=>["class"=>"form-control"],'attr' => [
                 'min' => 1,
                 'max' => 5
             ], "label_attr"=>["class"=>""]])
-            ->add('texte', TextType::class,["attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
+            ->add('texte', TextType::class,[
+                "attr"=>["class"=>"form-control"], "label_attr"=>["class"=>""]])
             ->add('auteur', EntityType::class, [
+                'disabled' => true,
                 'class' => Utilisateur::class,
-                'choice_label' => 'id',
+                'choice_label' => function ($user) {
+                    return 'Nom : '.$user->getNom() . ', Prénom : ' . $user->getPrenom() . ', Email : ' . $user->getEmail();
+                },
             ])
             ->add('reservation_id', EntityType::class, [
                 'class' => Reservation::class,

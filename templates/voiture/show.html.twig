@@ -7,6 +7,13 @@
 <div class="container">
 
     <div class="page">
+    {% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
         <div class="show-slide">
                 <div class="slide">
                     <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1" alt="photo1" width="200px">

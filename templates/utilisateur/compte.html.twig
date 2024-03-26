@@ -6,51 +6,59 @@
 <div class="container">
 
     <h1>Mon compte </h1>
-    <h2>Mes informations : </h2>
-
-    {{ utilisateur.nom }} {{ utilisateur.prenom }}
-                {{ utilisateur.sexe }}
-            {{ utilisateur.email }} 
-             
-             
-                 Permis 
-                 {{ utilisateur.permis }} 
-             
-              
-                 Dof 
-                 {{ utilisateur.dof ? utilisateur.dof|date('Y-m-d') : '' }} 
-             
-             
-                 Sexe 
-                 {{ utilisateur.sexe }} 
-             
-             
-                 Tel 
-                 {{ utilisateur.tel }} 
-             
-             
-                 Adresse 
-                 {{ utilisateur.adresse }} 
-             
-             
-                 Ville 
-                 {{ utilisateur.ville }} 
-             
-             
-                 Cp 
-                 {{ utilisateur.cp }} 
-             
-             
-                 Pays 
-                 {{ utilisateur.pays ? utilisateur.pays|json_encode : '' }} 
-             
-            {% if is_granted('ROLE_ADMIN') %}
-                 
-                     Role  
-                     {{ utilisateur.roles ? utilisateur.roles|json_encode : '' }} 
-                 
-            {% endif %}
+    <h3>Mes informations : </h3>
+    <table>
+        <tbody>
+            <tr>
+                <th>Nom :</th>
+                <td>{{ utilisateur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prénom :</th>
+                <td>{{ utilisateur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Sexe :</th>
+                <td>{{ utilisateur.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Email :</th>
+                <td>{{ utilisateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Permis :</th>
+                <td>{{ utilisateur.permis }}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance :</th>
+                <td>{{ utilisateur.dof? utilisateur.dof|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone :</th>
+                <td>{{ utilisateur.tel }}</td>
+            </tr>
+            <tr>
+                <th>Adresse :</th>
+                <td>{{ utilisateur.adresse }} {{ utilisateur.ville }} {{ utilisateur.cp }} 
+                {% if utilisateur.pays == "France" %}
+                    France
+                {% else %}
+                    Espagne
+                {% endif %}
+                
+                </td>
+            </tr>
+            
         </tbody>
+
+   
+            {% if is_granted('ROLE_ADMIN') %}
+             <tr>    
+                     <th>Role  </th>
+                     <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }} </td>
+            </tr>
+            {% endif %}
+        
     </table>
 
     <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}"><button type="button" class="btn btn-outline-warning">Modifier mes informations</button></a>

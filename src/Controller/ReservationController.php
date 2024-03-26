@@ -60,12 +60,17 @@ class ReservationController extends AbstractController
         // Vérifier si la voiture est déjà réservée pour ces dates
         $existingReservation = $reservationRepository->findByCarAndDates($voitureId, $dateDebut, $dateFin);
 
-        if ($existingReservation) {
+        if ($existingReservation !== null) {
             // Gérer le cas où la voiture est déjà réservée
             // Retourner un message d'erreur ou rediriger l'utilisateur, par exemple
-            throw $this->createNotFoundException('La voiture n\'est pas disponible durant ces dates.');
-            return $this->redirectToRoute('app_voiture_index');
-        }
+            // throw $this->createNotFoundException('La voiture n\'est pas disponible durant ces dates.');
+            // return $this->redirectToRoute('app_voiture_index');
+        //    return new Response('Le véhicule est déjà réservé pour ces dates.', Response::HTTP_BAD_REQUEST);
+        $this->addFlash('error', 'La voiture est déjà réservée pour ces dates.');
+            return $this->redirectToRoute('app_voiture_show', [
+                'id' => $voitureId
+            ]);    
+    }
 
         $reservation = new Reservation();
         $id= $request->query->all(); 

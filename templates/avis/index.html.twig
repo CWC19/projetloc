@@ -10,7 +10,7 @@
             {% for avi in avis %}
                 <div class="unique">
                 
-                    <p>Avis n°: {{ avi.id }}  {{ avi.dateP ? avi.dateP|date('Y-m-d') : '' }}</p>
+                    <p>Avis n°: {{ avi.id }}  {{ avi.dateP ? avi.dateP|date('d-m-Y') : '' }}</p>
                     <p>{{ nom }} {{prenom}}</p>
                     <p>{{ avi.note }}/5</p>
                     <p>{{ avi.texte }}</p>
@@ -25,14 +25,16 @@
                 </div>
             {% else %}
                 
-                    no records found
+                    Aucun avis
                 
             {% endfor %}
 
         </div>
         
     {% if app.user %}
-        <a href="{{ path('app_avis_new') }}">Create new</a>
+    <div class="text-center">
+        <a href="{{ path('app_avis_new') }}" class="btn btn-info text-center">Laisser un avis +</a>
+    </div>
     {% endif %}
 </div>
 
