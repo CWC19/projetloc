@@ -38,12 +38,49 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/mesres', name: 'app_mes_reservations', methods: ['GET'])]
-    public function mesres(ReservationRepository $reservationRepository): Response
+    public function mesres(ReservationRepository $reservationRepository, EntityManagerInterface $entityManager): Response
     {
+            $user = $this->getUser();
+        
+        if ($user) {
+            $reservations = $reservationRepository->findBy(['client' => $user]);
+        } else {
+            // Gérer le cas où l'utilisateur n'est pas connecté
+            // Par exemple, rediriger vers la page de connexion
+            return $this->redirectToRoute('app_login');
+        }
+            // Créer un tableau pour stocker les détails des réservations
+        $reservationDetails = [];
+
+        foreach ($reservations as $reservation) {
+            $voiture = $reservation->getVoiture(); // Récupérer l'entité Voiture associée à la réservation
+           // Vérifier si la voiture existe
+           if ($voiture) {
+            $id = $voiture->getId();
+            $dateDeb = $reservation->getDateDeb();
+            $dateFin = $reservation->getDateFin();
+            $prix = $reservation->getPrixTT();
+            $type = $voiture->getType(); // Récupérer l'entité Type associée à la voiture
+            $marque = $type->getMarque();
+            $modele = $type->getModel();
+
+            // Ajouter les détails de la réservation à notre tableau
+            $reservationDetails[] = [
+                'marque' => $marque,
+                'modele' => $modele,
+                'id' => $id,
+                'dateDeb' => $dateDeb,
+                'dateFin' => $dateFin,
+                'prixTT' => $prix,
+
+                                // Ajoutez d'autres détails de réservation si nécessaire
+            ];
+        }
+    }
+        
+
         return $this->render('reservation/res.html.twig', [
-            'reservations' => $reservationRepository->findBy(
-                     ["client" => $this->getUser()]
-                ),
+            'reservationDetails' => $reservationDetails,
         ]);
     }
 

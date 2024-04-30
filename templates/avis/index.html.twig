@@ -10,9 +10,15 @@
             {% for avi in avis %}
                 <div class="unique">
                 
-                    <p>Avis n°: {{ avi.id }}  {{ avi.dateP ? avi.dateP|date('d-m-Y') : '' }}</p>
+                    <p>Avis n°: {{ avi.id }}  {{ avi.dateP ? avi.dateP|date('d-m-Y
+                    ') : '' }}</p>
                     <p>{{ nom }} {{prenom}}</p>
-                    <p>{{ avi.note }}/5</p>
+                    <div class="stars">
+                        {% for i in range(1, avi.note) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    
                     <p>{{ avi.texte }}</p>
                     
                         <a href="{{ path('app_avis_show', {'id': avi.id}) }}" class="btn btn-success">En savoir +</a>

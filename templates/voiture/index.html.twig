@@ -7,30 +7,33 @@
     <div class="all">
         {% for voiture in voitures %}
             <div class="unique">
-            
                 <div class="slider-wraper">
                     <div class="slider">
-                        <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1" alt="photo1" width="200px">
-                        <img src={{asset('IMAGES/'~ voiture.photo2)}} id="slide-1" alt="photo2" width="200px">
-                        <img src={{asset('IMAGES/'~ voiture.photo3)}} id="slide-1" alt="photo3" width="200px">
+                        <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1{{ voiture.photo1 }}" alt="photo1" width="200px">
+                        <img src={{asset('IMAGES/'~ voiture.photo2)}} id="slide-2{{ voiture.photo2 }}" alt="photo2" width="200px">
+                        <img src={{asset('IMAGES/'~ voiture.photo3)}} id="slide-3{{ voiture.photo3 }}" alt="photo3" width="200px">
                     </div>
-                    <div class="slider-nav">
-                        <a href="#slide-1"></a>
-                        <a href="#slide-2"></a>
-                        <a href="#slide-3"></a>
-                    </div>
+                    
                 </div>
                 <div class="info">
-                    {{ voiture.id }}
+                    {# {{ voiture.id }}
                     {{ voiture.immat }}
-                    {{ voiture.prix }}€/jour
-                    {{ voiture.couleur }} 
-                    {{model}}
-                    {{marque}}
-                    {{puissance}}
-                    {{carburant}}
-                    {{bv}}
-                    {{categorie}}
+                    {{ voiture.couleur }}  #}
+                    {# <br> #}
+                    Marque : {{marque}}
+                    <br>
+                    Model : {{model}}
+                    <br>
+                    {{puissance}} chevaux
+                    <br>
+                    Carburant : {{carburant}}
+                    <br>
+                    Boite de vitesse : {{bv}}
+                    <br>
+                    Catégorie : {{categorie}}
+                    <br>
+                    Prix : {{ voiture.prix }}€/jour
+
 
                 </div>    
                 <div class="actions">

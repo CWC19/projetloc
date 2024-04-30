@@ -7,7 +7,7 @@
     <div class=" inscription">
             <h1 class="text-center">M'inscrire</h1>
             <div class="">
-                {{ include('utilisateur/_form.html.twig') }}
+                {{ include('utilisateur/_form.html.twig', {'button_label': 'Inscription', 'button-class' : 'btn btn-success'}) }}
             </div>
             
     </div>

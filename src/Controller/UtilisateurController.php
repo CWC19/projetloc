@@ -63,7 +63,6 @@ class UtilisateurController extends AbstractController
         
         return $this->render('utilisateur/compte.html.twig', [
             'utilisateur' => $utilisateur,
-            // 'reservation' => $reservation
         ]);
     }
 

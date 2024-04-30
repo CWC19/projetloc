@@ -6,7 +6,6 @@
         {# {{ include('reservation/form_date.html.twig') }} #}
 <div class="container">
 
-    <div class="page">
     {% for type, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert alert-{{ type }}">
@@ -14,36 +13,27 @@
         </div>
     {% endfor %}
 {% endfor %}
+    
         <div class="show-slide">
                 <div class="slide">
-                    <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1" alt="photo1" width="200px">
-                    <img src={{asset('IMAGES/'~ voiture.photo2)}} id="slide-1" alt="photo2" width="200px">
-                    <img src={{asset('IMAGES/'~ voiture.photo3)}} id="slide-1" alt="photo3" width="200px">
-                </div>
-                <div class="slide-nav">
-                    <a href="#slide-1"></a>
-                    <a href="#slide-2"></a>
-                    <a href="#slide-3"></a>
+                    <img src={{asset('IMAGES/'~ voiture.photo1)}} id="slide-1" alt="photo1" width="400px">
+                    <img src={{asset('IMAGES/'~ voiture.photo2)}} id="slide-1" alt="photo2" width="400px">
+                    <img src={{asset('IMAGES/'~ voiture.photo3)}} id="slide-1" alt="photo3" width="400px">
                 </div>
             </div>
+    <br>
+        <div class='texte'>
+            La {{marque}} {{modele}} est réputée pour sa fiabilité et son confort de conduite. Dotée d'un design élégant et moderne, elle offre un intérieur spacieux et bien équipé, idéal pour les trajets quotidiens ou les voyages sur longue distance. Son moteur {{carburant}} de      {{puissance}} chevaux garantit une conduite souple et économique. Avec la {{marque}} {{modele}} , vous bénéficiez également de nombreux équipements de confort et de sécurité, tels que la climatisation, le système audio de haute qualité, les airbags, les freins ABS, et bien plus encore.
+            <br>
+            <br>
+            Catégorie : {{categorie}}
+            <br>
+            Boite de vitesse : {{bv}}
+            <br>
+            Prix :  {{ voiture.prix }}/jour
+            <br>
         </div>
-        {# {{type.id}} #}
-        {# {{type.marque}}
-        {{type.model}} #}
-        {# {{dump(type)}} #}
-        {{ voiture.id }}
-        {{ voiture.immat }}
-        {{ voiture.prix }}
-        {{ voiture.couleur }}
-        {{modele}}
-        {{marque}}
-        {{puissance}}
-        {{carburant}}
-        {{bv}}
-        {{categorie}}
-
-        
-
+    <br>
     <form action="{{ path('app_reservation_new') }}" method="get">
         <label for="datedebut">Du :</label>
         <input type="date" name="datedebut" id="datedebut" required>
@@ -51,7 +41,8 @@
         <input type="date" name="datef" id="datefin" required>
         <input type="hidden" value="{{voiture.id}}" name="idv">
         <input type="hidden" value="{{voiture.prix}}" name="prixv">
-        <input type="submit" value="Rechercher">
+        <br>
+        <input type="submit" value="Rechercher" class='btn btn-success'>
     </form>
 
     {% if is_granted('ROLE_ADMIN') %}
