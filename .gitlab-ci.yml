@@ -1,0 +1,19 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  # - deploy gérer par render donc pas stage
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  image: node:latest # Install derniere version de node 
+  script:
+    - npm install #installe les dépendances
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test  # It only starts when the job in the build stage completes successfully.
+  image: node:latest
+  before_script: 
+    - npm install # peut aussi etre mit dans le script comme dans le build-job
+  script:
+    - npm run test
+

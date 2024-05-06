@@ -234,4 +234,48 @@ footer .container-foot .titre{
     .home .home-slider .slide .content h3{
         font-size: 5rem;
     } */
+
+}
+
+@media only screen and (max-width: 414px) {
+    .entete {
+        padding: 1rem 3%;
+    }
+
+    .entete .navbarre a {
+        font-size: 1rem;
+        padding: .5rem 1rem;
+    }
+
+    .entete .icons i,
+    .entete .icons a {
+        height: 4rem;
+        line-height: 4rem;
+        width: 4rem;
+        font-size: 1.5rem;
+    }
+
+    .entete .icons #menu-bars{
+        display: inline-block;
+    }
+
+    .entete .navbarre{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: .1rem solid rgba(0,0,0,.2);
+        border-bottom: .1rem solid rgba(0,0,0,.2);
+        padding: 1rem;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    .entete .navbarre a{
+        display: block;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-size: 2rem;
+        background: #eee;
+    }
 }
