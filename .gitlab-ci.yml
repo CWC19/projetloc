@@ -5,7 +5,12 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
+  image: php:7.4
   script:
+    - apt-get update && apt-get install -y git zip unzip
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    - rm composer-setup.php
     #Installe les dépendances Symfony
     - echo "Début de la construction du projet..."
     - composer install --no-scripts --no-interaction
