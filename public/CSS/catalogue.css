@@ -127,3 +127,26 @@
     display:grid;
     grid-template-columns: repeat(2, 1fr);
 }
+
+/* @media only screen and (min-width: 375px) and (max-width:414){
+    .all{
+        display: block;
+        grid-template-columns: 1fr;
+    }
+} */
+
+/* Pour les écrans de téléphone */
+@media screen and (max-width: 767px) {
+    .all {
+        display: block;
+        grid-template-columns: 1fr; /* Un véhicule par ligne */
+    }
+}
+
+/* Pour les écrans de tablette */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .all {
+        display: block;
+        grid-template-columns: 1fr; /* Un véhicule par ligne */
+    }
+}

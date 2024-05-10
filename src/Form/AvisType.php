@@ -35,10 +35,7 @@ class AvisType extends AbstractType
                     return 'Nom : '.$user->getNom() . ', Prénom : ' . $user->getPrenom() . ', Email : ' . $user->getEmail();
                 },
             ])
-            ->add('reservation_id', EntityType::class, [
-                'class' => Reservation::class,
-                'choice_label' => 'id',
-            ])
+            
         ;
     }
 

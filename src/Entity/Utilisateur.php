@@ -77,17 +77,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?float $tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern:"/^[a-zA-Z0-9\-^¨]*$/",
-        message:"Veuillez saisir uniquement des chiffres, lettres et ces caracères spéciaux : '- ^ ¨' ."
-    )]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern:"/^[a-zA-Z\-^¨]*$/",
-        message:"Seulement les lettres et ces caractères spéciaux '- ^ ¨' sont acceptés."
-    )]
     private ?string $ville = null;
 
     #[ORM\Column(nullable: true)]

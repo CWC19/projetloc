@@ -69,7 +69,6 @@ class Utilisateur1Type extends AbstractType
                 "attr"=>["class"=>"form-control col-md-4"],
                 "multiple"=>true,
                 "choices"=>[
-                    
                     "France"=>"France", //"label"->"valeur" (valeur=stocker dans bdd)
                     "Espagne"=>"Espagne"
                 ]
@@ -98,6 +97,7 @@ class Utilisateur1Type extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
+            'name' => 'utilisateur',
             'disabled_role_field' => false, // Par défaut, le champ du rôle n'est pas désactivé
         ]);
 

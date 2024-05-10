@@ -40,11 +40,9 @@
             <tr>
                 <th>Adresse :</th>
                 <td>{{ utilisateur.adresse }} {{ utilisateur.ville }} {{ utilisateur.cp }} 
-                {% if utilisateur.pays == "France" %}
-                    France
-                {% else %}
-                    Espagne
-                {% endif %}
+                {% for pays in utilisateur.pays %}
+                    {{ pays }}
+                {% endfor %}
                 
                 </td>
             </tr>
