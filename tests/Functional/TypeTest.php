@@ -2,42 +2,49 @@
 
 namespace App\Tests\Functional;
 
+use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TypeTest extends WebTestCase
 {
 
-    public function testIndex(): void
-    {
+    public function testIndex(): void{
+            $client = static::createClient();
+            $urlGenerator = $client->getContainer()->get('router');
+            $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+            $user = $entityManager->find(Utilisateur::class, 8); //user id 
+            $client->loginUser($user);
+            
+            $crawler = $client->request(Request::METHOD_GET,$urlGenerator->generate('app_type_index'));
+    
+            $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+            
+        }
+    
+
+    public function testAddType(): void {
         $client = static::createClient();
-
-        $client->request('GET', '/type/');
-
-        // Vérifiez que la réponse est une redirection vers la page de connexion
-        $this->assertResponseRedirects('/login');
-
-        // Suivez la redirection vers la page de connexion
-        $crawler = $client->followRedirect();
-
-        // Vérifiez que la page de connexion est affichée
-        $this->assertResponseIsSuccessful();
+        $urlGenerator = $client->getContainer()->get('router');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $user = $entityManager->find(Utilisateur::class, 8); //user id 
+        $client->loginUser($user);
         
+        $crawler = $client->request(Request::METHOD_GET,$urlGenerator->generate('app_type_new'));
 
-        // Maintenant, connectez-vous avec un utilisateur admin
-        $client->submitForm('Connexion', [
-            'email' => 'admin2@gmail.com', // Remplacez par l'email de l'utilisateur admin
-            'password' => 'Admin10052024@', // Remplacez par le mot de passe de l'utilisateur admin
+        $form = $crawler->filter ('form[name=type]')->form([
+            'type[marque]' => 'Déco',
+            'type[model]' => 'Déco2',
+            'type[puissance]' => '12',
+            'type[carburant]' => 'Essence',
+            'type[boite_vitesse]' => 'Automatique',
+            'type[categorie]' => 'Sport',
         ]);
-
-        // Vérifiez que la connexion a réussi
-        $this->assertResponseRedirects('/type/');
-
-        // Suivez la redirection vers la page d'index des types
+        $client->submit($form);
+        $this->assertResponseStatusCodeSame(Response::HTTP_SEE_OTHER);
         $client->followRedirect();
-
-        // Vérifiez que la page d'index des types est affichée
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Type liste');
+        $this->assertRouteSame('app_type_index');
     }
 
 }
