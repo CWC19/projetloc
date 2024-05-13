@@ -156,7 +156,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_reservation_show', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function show(Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
@@ -209,7 +209,7 @@ class ReservationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
     }
 
     // #[Route('/res/{id}', name: 'app_reservation_compte', methods: ['GET'])]

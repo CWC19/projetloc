@@ -3,28 +3,27 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="">
 
     {# <div class="ecran"> #}
     {# <div class="content-inside"> #}
     <h1>Utilisateur index</h1>
 
-    <table class="table">
+    <table class="table" width="100%">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Nom</th>
-                <th>Prenom</th>
+                <th>Nom Prenom</th>
                 <th>Permis</th>
                 <th>Dof</th>
                 <th>Sexe</th>
                 <th>Tel</th>
                 <th>Adresse</th>
-                <th>Ville</th>
-                <th>Cp</th>
-                <th>Pays</th>
+                {# <th>Ville</th> #}
+                {# <th>Cp</th>
+                <th>Pays</th> #}
                 <th>actions</th>
             </tr>
         </thead>
@@ -34,16 +33,12 @@
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-                <td>{{ utilisateur.nom }}</td>
-                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.nom }} {{ utilisateur.prenom }}</td>
                 <td>{{ utilisateur.permis }}</td>
                 <td>{{ utilisateur.dof ? utilisateur.dof|date('Y-m-d') : '' }}</td>
                 <td>{{ utilisateur.sexe }}</td>
                 <td>{{ utilisateur.tel }}</td>
-                <td>{{ utilisateur.adresse }}</td>
-                <td>{{ utilisateur.ville }}</td>
-                <td>{{ utilisateur.cp }}</td>
-                <td>{{ utilisateur.pays ? utilisateur.pays|json_encode : ''}}</td>
+                <td>{{ utilisateur.adresse }}{{ utilisateur.ville }}{{ utilisateur.cp }}</td>
                 <td>
                     <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-success">Voir</a>
                     <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-warning">Modifier</a>

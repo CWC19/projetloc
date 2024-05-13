@@ -34,7 +34,7 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $utilisateur->setRoles(['Client']);
+            $utilisateur->setRoles(['ROLE_CLIENT']);
             $utilisateur->setPassword($passEncoded->hashPassword($utilisateur, $form->get('password')->getData()));
             $entityManager->persist($utilisateur);
             $entityManager->flush();
@@ -48,7 +48,7 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function show(Utilisateur $utilisateur): Response
     {
@@ -99,15 +99,18 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
+
         if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
             $entityManager->remove($utilisateur);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+            
+            }
+
+        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
     }
 }

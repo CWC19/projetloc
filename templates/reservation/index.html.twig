@@ -41,9 +41,6 @@
         </tbody>
     </table>
     
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_reservation_new') }}" class="btn btn-info">Create new</a>
-
-    {% endif %}
+    
     </div>
 {% endblock %}

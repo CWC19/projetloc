@@ -211,9 +211,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPermis(string $permis): static
     {
        // Vérifier si le numéro de permis est null ou a une longueur différente de 30 caractères
-       if ($permis !== null && strlen($permis) !== 30) {
-            throw new \InvalidArgumentException('Le numéro de permis doit avoir exactement 30 caractères.');
-        }
+    //    if ($permis !== null && strlen($permis) !== 30) {
+    //         throw new \InvalidArgumentException('Le numéro de permis doit avoir exactement 30 caractères.');
+    //     }
         $this->permis = $permis;
 
         return $this;

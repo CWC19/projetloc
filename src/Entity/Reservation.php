@@ -37,13 +37,6 @@ class Reservation
     #[Assert\GreaterThan('tomorrow')]
     private ?\DateTimeInterface $date_fin = null;
 
-    #[ORM\OneToMany(mappedBy: 'reservation_id', targetEntity: Avis::class)]
-    private Collection $avis;
-
-    public function __construct()
-    {
-        $this->avis = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -106,36 +99,6 @@ class Reservation
     public function setDateFin(\DateTimeInterface $date_fin): static
     {
         $this->date_fin = $date_fin;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Avis>
-     */
-    public function getAvis(): Collection
-    {
-        return $this->avis;
-    }
-
-    public function addAvi(Avis $avi): static
-    {
-        if (!$this->avis->contains($avi)) {
-            $this->avis->add($avi);
-            $avi->setReservationId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAvi(Avis $avi): static
-    {
-        if ($this->avis->removeElement($avi)) {
-            // set the owning side to null (unless already changed)
-            if ($avi->getReservationId() === $this) {
-                $avi->setReservationId(null);
-            }
-        }
 
         return $this;
     }
